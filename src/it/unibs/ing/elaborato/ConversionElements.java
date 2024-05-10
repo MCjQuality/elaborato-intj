@@ -26,6 +26,10 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		list.add(elem);
 	}
 
+	public ConversionElement getConversionElement(LeafCategory leaf1, LeafCategory leaf2)
+	{
+		return list.stream().filter(s->(s.getCouple().getFirstLeaf().equals(leaf1) && s.getCouple().getSecondLeaf().equals(leaf2))).toList().getFirst();
+	}
 	public boolean isCouplePresent(Couple couple) {
 		return list.stream().anyMatch(s -> s.getCouple().equals(couple));
 	}
@@ -34,11 +38,13 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		return list.size();
 	}
 
-	public boolean isFactConvPresent(Double factConv) {
+	public boolean isFactConvPresent(Double factConv)
+	{
 		return list.stream().anyMatch(s -> s.getConversionFactor() == factConv);
 	}
 
-	public void replace(Couple coupleToFind, double l) {
+	public void replace(Couple coupleToFind, double l)
+	{
 		list.stream().filter(s -> s.getCouple().equals(coupleToFind)).forEach(s -> s.setConversionFactor(l));
 	}
 
@@ -99,15 +105,18 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 	 * ...to be continued
 	 * 
 	 */
-	public void automaticConvFactCalculate() {
+	public void automaticConvFactCalculate()
+	{
 		for(ConversionElement elem : list)
-			if (elem.getConversionFactor() == 0) {
+			if (elem.getConversionFactor() == 0)
+			{
 				ConversionElements compatibles = getCompatibleElements(elem);
 
 				if(compatibles.size() > 1)
 					for (ConversionElement elem2 : compatibles.getConversionElements())
 						for(ConversionElement elem3 : compatibles.getConversionElements())
-							if (hasLeafInCommon(elem2, elem3)) {
+							if (hasLeafInCommon(elem2, elem3))
+							{
 								double newConvFact = elem2.getConversionFactor() * elem3.getConversionFactor();
 								Couple couple = elem.getCouple();
 								replace(couple, newConvFact);
@@ -129,40 +138,73 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		return compatibles;
 	}
 
-	public boolean hasLeafInCommon(ConversionElement elem1, ConversionElement elem2) {
+	public boolean hasLeafInCommon(ConversionElement elem1, ConversionElement elem2)
+	{
 		return (elem1.getCouple().getSecondLeaf().equals(elem2.getCouple().getFirstLeaf()) || elem1.getCouple().getFirstLeaf().equals(elem2.getCouple().getSecondLeaf()));
 	}
 
-	public void initializeNewConvElements(Hierarchies hierarchies) {
+
+	public void update(Hierarchies hierarchies) throws CloneNotSupportedException {
+		for(LeafCategory leaf : hierarchies.getLeaves())
+			if(hierarchies.isLeafDuplicated(leaf))
+				for(ConversionElement elem : list)
+				{
+
+					if(elem.getCouple().getFirstLeaf().equals(leaf) && elem.getCouple().getSecondLeaf().equals(leaf))
+					{
+						LeafCategory cloned1 = elem.getCouple().getFirstLeaf().clone();
+						LeafCategory cloned2 = elem.getCouple().getSecondLeaf().clone();
+						cloned1.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(leaf).getName() + Constants.SQUARE_BRACKETS2);
+						cloned2.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(leaf).getName() + Constants.SQUARE_BRACKETS2);
+						elem.setCouple(new Couple(cloned1, cloned2));
+					}
+					else if(elem.getCouple().getFirstLeaf().equals(leaf))
+					{
+						LeafCategory cloned = elem.getCouple().getFirstLeaf().clone();
+						cloned.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(leaf).getName() + Constants.SQUARE_BRACKETS2);
+						elem.setCouple(new Couple(cloned, elem.getCouple().getSecondLeaf()));
+					}
+					else if (elem.getCouple().getSecondLeaf().equals(leaf))
+					{
+						LeafCategory cloned = elem.getCouple().getSecondLeaf().clone();
+						cloned.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(leaf).getName() + Constants.SQUARE_BRACKETS2);
+						elem.setCouple(new Couple(elem.getCouple().getFirstLeaf(), cloned));
+					}
+				}
+	}
+
+	public void initialize(Hierarchies hierarchies) throws CloneNotSupportedException {
 		for (int i = 0; i < hierarchies.getLeaves().size(); i++)
 			for (int j = 0; j < hierarchies.getLeaves().size(); j++)
 				if(!hierarchies.getLeaves().get(i).getName().equals(hierarchies.getLeaves().get(j).getName()))
 				{
 					Couple couple = null;
-					if (hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(i))) 
+					if(hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(i)) && hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(j)))
 					{
-						LeafCategory leaf;
-						try {
-							leaf = hierarchies.getLeaves().get(i).clone();
-							leaf.setName(leaf.getName() + " [" + hierarchies.getRoot(leaf).getName() + "]");
-							couple = new Couple(leaf, hierarchies.getLeaves().get(j));
-						} catch (CloneNotSupportedException e) {
-							e.printStackTrace();
-						}
+						LeafCategory leaf1 = hierarchies.getLeaves().get(i).clone();
+						LeafCategory leaf2 = hierarchies.getLeaves().get(j).clone();
+						leaf1.setName(leaf1.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(hierarchies.getLeaves().get(i)).getName() + Constants.SQUARE_BRACKETS2);
+						leaf2.setName(leaf2.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(hierarchies.getLeaves().get(j)).getName() + Constants.SQUARE_BRACKETS2);
+						couple = new Couple(leaf1, leaf2);
 					}
-					else if (hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(j))) {
-						LeafCategory leaf;
-						try {
-							leaf = hierarchies.getLeaves().get(j).clone();
-							leaf.setName(leaf.getName() + " [" + hierarchies.getRoot(leaf).getName() + "]");
-							couple = new Couple(hierarchies.getLeaves().get(i),leaf);
-						} catch (CloneNotSupportedException e) {
-							e.printStackTrace();
-						}
+					else if (hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(i)))
+					{
+						//se e' la prima foglia e' duplicata devo controllare gli elementi di conv in cui compare come PRIMA o SECONDA componente
+						// (e quindi aggiungerci la radice)
+						//oppure se non e' presente in nessun elemento di conv crearne uno
+						LeafCategory leaf = hierarchies.getLeaves().get(i).clone();
+						leaf.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(hierarchies.getLeaves().get(i)).getName() + Constants.SQUARE_BRACKETS2);
+						couple = new Couple(leaf, hierarchies.getLeaves().get(j));
+
 					}
-					else {
+					else if(hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(j)))
+					{
+						LeafCategory leaf = hierarchies.getLeaves().get(j).clone();
+						leaf.setName(leaf.getName() + Constants.SQUARE_BRACKETS1 + hierarchies.getRoot(hierarchies.getLeaves().get(j)).getName() + Constants.SQUARE_BRACKETS2);
+						couple = new Couple(hierarchies.getLeaves().get(i), leaf);
+					}
+					else
 						couple = new Couple(hierarchies.getLeaves().get(i), hierarchies.getLeaves().get(j));
-					}
 					if (!isCouplePresent(couple))
 						addFactConv(new ConversionElement(couple, 0.));
 				}

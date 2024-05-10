@@ -21,7 +21,7 @@ public class Constants {
 	public static final String ITALICS = "\033[1m\033[3m";
 	public static final String UNDERLINE = "\033[4m";
 	public static final String COMMA = ", ";
-	public static final String SQUARE_BRACKETS1 = "[";
+	public static final String SQUARE_BRACKETS1 = " [";
 	public static final String SQUARE_BRACKETS2 = "]";
 	
 	public static final String EMAIL_REGEX =
@@ -179,8 +179,8 @@ public class Constants {
 	public static final String TREE_PRINT_OF_HIERARCHY_MESSAGE = GRAY_FORMAT + " -Visualizzazione ad albero-" + RESET_FORMAT;
 	public static final String COMPLETE_PRINT_OF_HIERARCHY_MESSAGE = GRAY_FORMAT + " -Visualizzazione completa-" + RESET_FORMAT;
 	public static final String CLOSED_SETS = BOLD_FORMAT + "Insieme %d" + RESET_FORMAT;
-	public static final String REQUEST_MESSAGE = "Richiesta: ";
-	public static final String OFFERT_MESSAGE = "Offerta: ";
+	public static final String REQUEST_MESSAGE = "Richiesta:";
+	public static final String OFFERT_MESSAGE = "Offerta:";
 	public static final String OPEN = "APERTA";
 	public static final String CLOSED = "CHIUSA";
 	public static final String WITHDRAWN = "RITIRATA";

@@ -54,22 +54,22 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
 	@Override
 	public boolean contains(LeafCategory leaf)
 	{
-		return this.equals(leaf);
+		return this == (leaf);
 	}
 
-//	@Override
-//    public boolean equals(Object o)
-//	{
-//        if (this == o) return true;
-//        if (!(o instanceof LeafCategory)) return false;
-//        LeafCategory leaf = (LeafCategory) o;
-//        return this.getName().equals(leaf.getName()) && this.getDomain().equals(leaf.getDomain());
-//    }
-//
-//    @Override
-//    public int hashCode()
-//    {
-//        return Objects.hash(getName(), getDomain(), getDescription());
-//    }
+	@Override
+    public boolean equals(Object o)
+	{
+        if (this == o) return true;
+        if (!(o instanceof LeafCategory)) return false;
+        LeafCategory leaf = (LeafCategory) o;
+        return this.getName().equals(leaf.getName());
+    }
+
+	@Override
+    public int hashCode()
+    {
+        return Objects.hash(getName());
+    }
 
 }

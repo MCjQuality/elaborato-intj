@@ -171,8 +171,7 @@ public class MenuConfig {
 		} while (notValid);
 	}
 
-	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws FileNotFoundException, IOException 
-	{
+	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws FileNotFoundException, IOException, CloneNotSupportedException {
 		System.out.println();
 		System.out.println(Printer.align(Constants.INSERT_NEW_HIERARCHY_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
@@ -188,7 +187,8 @@ public class MenuConfig {
 
 		Utility.clearConsole(Constants.TRANSACTION_TIME);
 
-		conversionElements.initializeNewConvElements(hierarchies);
+		conversionElements.update(hierarchies);
+		conversionElements.initialize(hierarchies);
 		if(conversionElements.getConversionElements().size() > 1) 
 		{
 			setConvFact(hierarchies, conversionElements, scanner);
@@ -395,7 +395,6 @@ public class MenuConfig {
 				boolean notValid = false;
 
 				System.out.println(Printer.printRemainingConversionFactor(conversionElements));
-
 				//				devo controllare che:
 				//				- il numero inserito sia effettivamente una coppia presente
 				//				- il fattore di conversione sia valido (>0.5 && <2.0)
@@ -451,7 +450,7 @@ public class MenuConfig {
 	{
 		String name = Utility.check2Condition(Constants.INSERT_CATEGORY_NAME_MASSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.CATEGORY_ALREADY_INSERT, String::isBlank, root::contains, scanner);
 		String nameDomain = Utility.checkCondition(Constants.SPECIFY_DOMAIN_NAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
-		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"), scanner);
+		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase(Constants.YES_MESSAGE) && !input.equalsIgnoreCase(Constants.NO_MESSAGE), scanner);
 		String description = null;
 
 		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE)) 
@@ -467,7 +466,7 @@ public class MenuConfig {
 	{
 		String name = Utility.check2Condition(Constants.INSERT_CATEGORY_NAME_MASSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.CATEGORY_ALREADY_INSERT, String::isBlank, root::contains, scanner);
 		String nameDomain = Utility.checkCondition(Constants.SPECIFY_DOMAIN_NAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
-		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"), scanner);
+		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase(Constants.YES_MESSAGE) && !input.equalsIgnoreCase(Constants.NO_MESSAGE), scanner);
 		String description = null;
 
 		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE)) 

@@ -118,6 +118,7 @@ public class Main {
 						do 
 						{
 							input_error = false;
+
 							district_index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= districts.getDistricts().size()), scanner));
 							district_name = districts.getDistricts().get(district_index - 1).getName();
 							username_consumer = Utility.check2Condition(Constants.USERNAME_MESSAGGE, Constants.INVALID_INPUT_MESSAGE, Constants.USERNAME_ALREADY_EXSIST_MESSAGE, String::isBlank, users::contains, scanner);

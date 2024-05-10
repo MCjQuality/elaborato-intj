@@ -19,7 +19,7 @@ public class Hierarchies implements Readable, Writable {
 	private List<NotLeafCategory> hierarchies;
 
 	public Hierarchies() {
-		this.hierarchies = new ArrayList<NotLeafCategory>();
+		this.hierarchies = new ArrayList<>();
 	}
 
 	public void addHierarchy(NotLeafCategory root) {
@@ -40,11 +40,14 @@ public class Hierarchies implements Readable, Writable {
 		return leavesInAllHierarchies;
 	}
 
-	public List<LeafCategory> differentiateLeaves() throws CloneNotSupportedException {
+	public List<LeafCategory> differentiateLeaves() throws CloneNotSupportedException
+	{
 		List<LeafCategory> leaves = new ArrayList<>();
 
-		for(LeafCategory elem : getLeaves()) {
-			if(isLeafDuplicated(elem)) {
+		for(LeafCategory elem : getLeaves())
+		{
+			if(isLeafDuplicated(elem))
+			{
 				LeafCategory leaf = elem.clone();
 				leaf.setName(elem.getName() + Constants.SQUARE_BRACKETS1 + getRoot(elem).getName() + Constants.SQUARE_BRACKETS2);
 				leaves.add(leaf);
@@ -63,7 +66,8 @@ public class Hierarchies implements Readable, Writable {
 		return hierarchies.stream().anyMatch(notLeaf -> notLeaf.getName().equals(name));
 	}
 
-	public NotLeafCategory getRoot(LeafCategory leaf) {
+	public NotLeafCategory getRoot(LeafCategory leaf)
+	{
 		for(NotLeafCategory root : hierarchies) 
 			if(root.contains(leaf))
 				return root;
@@ -75,7 +79,7 @@ public class Hierarchies implements Readable, Writable {
 	}
 	
 	public LeafCategory findLeaf(String name) {
-		return getLeaves().stream().filter(leaf -> leaf.getName().contentEquals(name)).toList().get(0);
+		return getLeaves().stream().filter(leaf -> leaf.getName().contentEquals(name)).toList().getFirst();
 	}
 
 	@Override

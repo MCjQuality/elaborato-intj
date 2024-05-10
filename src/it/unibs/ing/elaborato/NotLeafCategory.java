@@ -52,12 +52,22 @@ public class NotLeafCategory extends Category implements Serializable {
 		children.add(leaf);
 	}
 
+	@Override
 	public boolean contains(String name)
 	{
 		if(this.getName().equals(name))
 			return true;
 		for(Category elem : children)
 			if(elem.contains(name))
+				return true;
+		return false;
+	}
+
+	@Override
+	public boolean contains(LeafCategory leaf)
+	{
+		for(Category elem : children)
+			if(elem.contains(leaf))
 				return true;
 		return false;
 	}
@@ -77,12 +87,4 @@ public class NotLeafCategory extends Category implements Serializable {
         return Objects.hash(getName(), getDomain(), getDescription(), getField());
     }
 
-	@Override
-	public boolean contains(LeafCategory leaf)
-	{
-		for(Category elem : children)
-			if(elem.contains(leaf))
-				return true;
-		return false;
-	}
 }
