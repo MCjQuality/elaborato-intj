@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Objects;
 
 public class ExchangeProposal implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private Couple couple;
 	private int hoursRequest;
@@ -36,7 +38,7 @@ public class ExchangeProposal implements Serializable {
 				.stream()
 				.filter(elem -> elem.getCouple().equals(couple))
 				.toList()
-				.get(0)
+				.getFirst()
 				.getConversionFactor();
 		return (int) Math.round(hoursRequest * factConv);
 	}
@@ -78,22 +80,12 @@ public class ExchangeProposal implements Serializable {
 		addTransition(currentState);
 		this.currentState = State.CLOSED;
 	}
-	
-	public boolean verifyExchangeProposal(ExchangeProposal exchangeproposal1) 
-	{
-		return (exchangeproposal1.getCouple().getFirstLeaf().equals(this.getCouple().getSecondLeaf()) &&
-			exchangeproposal1.getCouple().getSecondLeaf().equals(this.getCouple().getFirstLeaf()) &&
-			exchangeproposal1.getHoursOffered() == this.getHoursRequest() &&
-			!exchangeproposal1.getOwner().equals(this.getOwner()) &&
-			exchangeproposal1.getOwner().getDistrict().equals(this.getOwner().getDistrict()));
-	}
-	
+
 	@Override
     public boolean equals(Object o) 
 	{
         if (this == o) return true;
-        if (!(o instanceof ExchangeProposal)) return false;
-        ExchangeProposal proposal = (ExchangeProposal) o;
+        if (!(o instanceof ExchangeProposal proposal)) return false;
         return this.getCouple().equals(proposal.getCouple()) && this.getHoursOffered() == proposal.getHoursOffered() && this.getHoursRequest() == proposal.getHoursRequest() && this.getOwner().equals(proposal.getOwner()) && this.getState().equals(proposal.getState());
     }
 

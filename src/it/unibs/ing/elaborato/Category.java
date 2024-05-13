@@ -8,7 +8,7 @@ import java.util.List;
  * Infatti qualsiasi sia la sua natura (foglia o meno) un nodo contiene a priori un nome, un valore del dominio e una sua possibile descrizione.
  * Inoltre, definisci metodi astratti che saranno implementati e concretizzati dalle sottoclassi, atti a fornire informazioni sull'effettiva natura delle sottoclassi e proprieta' delle stesse.
  */
-public abstract class Category implements Serializable, Cloneable {
+public abstract class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;

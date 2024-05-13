@@ -11,7 +11,7 @@ public class Districts implements Readable, Writable {
 	private ArrayList<District> districts;
 
 	public Districts() {
-		this.districts = new ArrayList<District>();
+		this.districts = new ArrayList<>();
 	}
 
 	public void addDistrict(District district) {
@@ -47,7 +47,7 @@ public class Districts implements Readable, Writable {
 	    }	
 	}
 	
-	public void write(String filepath) throws FileNotFoundException, IOException {
+	public void write(String filepath) throws IOException {
 		File file = new File(filepath);
 		if (file.createNewFile()) {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));

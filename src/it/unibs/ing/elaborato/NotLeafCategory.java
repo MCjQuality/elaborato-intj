@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Objects;
  */
 public class NotLeafCategory extends Category implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String field;
 	private List<Category> children;
@@ -76,8 +78,7 @@ public class NotLeafCategory extends Category implements Serializable {
     public boolean equals(Object o) 
 	{
         if (this == o) return true;
-        if (!(o instanceof NotLeafCategory)) return false;
-        NotLeafCategory notLeaf = (NotLeafCategory) o;
+        if (!(o instanceof NotLeafCategory notLeaf)) return false;
         return this.getName().equals(notLeaf.getName()) && this.getDomain().equals(notLeaf.getDomain()) && this.getField().equals(notLeaf.getField());
     }
 

@@ -15,7 +15,6 @@ public class Constants {
 	public static final String TAB = "\t";
 	public static final String NEW_LINE = "\n";	
 	public static final String DOUBLE_NEW_LINE = "\n\n";
-	public static final String QUOTATION_MARK = "'";
 	public static final String COLONS = " : ";
 	public static final String SEPARATOR = " - ";
 	public static final String ITALICS = "\033[1m\033[3m";
@@ -53,12 +52,10 @@ public class Constants {
 	public static final String MAIL_MESSAGE = "mail: ";
 	public static final String INSERT_NEW_USERNAME = "Inserisci nuovo username: ";
 	public static final String INSERT_NEW_PSW = "Inserisci nuova password: ";
-	public static final String CREDENTIALS_NOT_VALID =  RED_FORMAT + "Credenziali non valide!" + RESET_FORMAT;
 	public static final String LINE_SEPARATOR = "line.separator";
 	public static final String INVALID_PSW = "La password deve essere di almeno 5 caratteri, di cui almeno una cifra";
 	public static final String FILE_NOT_FOUND = BOLD_FORMAT + "Alcuni dei file non sono stati recuperati correttamente" + RESET_FORMAT;
 	public static final String IOEXCEPTION = BOLD_FORMAT + "Ci sono stati problemi nella scrittura sui file" + RESET_FORMAT;
-	public static final String INSERT_NUMBER_RELATING_TO_THE_DISTRICT = "Numero del comprensorio a cui si appartiene: ";
 	public static final String USERNAME_ALREADY_EXSIST_MESSAGE = BOLD_FORMAT + TAB + "Username gia' registrato, reinserire: " + RESET_FORMAT;
 	public static final String INSERT_PASSWORD_MATCHES_PREVIOUS_MESSAGE = "La password inserita corrisponde con quella precedente!";
 	public static final String REGISTRATION_AS_USER_MESSAGE = "Vuoi registrarti come fruitore (y/n)? ";
@@ -102,7 +99,6 @@ public class Constants {
 	public static final String SHOW_WITHDRAWN_PROPOSAL = "3 - Visualizza proposte ritirate";
 		//richiesta input
 	public static final String SPECIFY_DOMAIN_NAME_MESSAGE = "Inserisci il valore del dominio associato alla categoria: ";
-	public final static String SPECIFY_CATEGORY_NAME = "Specificare il tipo della categoria figlia di ";
 	public static final String INSERT_NUMBER_SELECT_HIERARCHY_MESSAGE = "Selezionare il numero relativo alla gerarchia da visualizzare: ";
 	public static final String SPECIFY_FIELD_NAME = "Inserisci il campo: ";
 	public static final String INSERT_CATEGORY_NAME_MASSAGE = "Inserisci il nome della categoria: ";
@@ -116,8 +112,6 @@ public class Constants {
 	public static final String INSERT_CATEGORY_DESCRIPTION_MESSAGE = "Inserisci la descrizione: ";
 	public static final String DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE = "Vuoi inserire descrizione associata al dominio (y/n)? ";
 	public static final String INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY = "Inserire numero relativo alla gerarchia che si vuole visualizzare: ";
-	public static final String INSERT_USERNAME_CONSUMER = "Inserire un nome utente: ";
-	public static final String INDEX_CATEGORY = "Inserire numero della categoria che si vuole visualizzare: ";
 	public static final String HOURS_REQUESTED = "Inserisci le ore di prestazione richieste: ";
 	public static final String SERVICE_OFFERED = "Inserisci il servizio offerto: ";
 	public static final String SERVICE_REQUESTED = "Inserisci il servizio richiesto: ";
@@ -128,7 +122,6 @@ public class Constants {
 	public static final String CHOOSE_LEAF_OPTIONS = NEW_LINE + "Seleziona la tipologia della categoria figlia di '%s': ";
 		//errori-conferme
 	public static final String CATEGORY_ALREADY_INSERT = BOLD_FORMAT + TAB + "Categoria gia' presente, reinserire: " + RESET_FORMAT;
-	public static final String CATEGORY_NOT_PRESENT_MESSAGE = TAB + RED_FORMAT + "Categoria non presente!" + RESET_FORMAT;
 	public static final String DISTRICT_NOT_SAVED_MESSAGE = YELLOW_FORMAT + TAB + "Comprensorio non salvato!" + RESET_FORMAT;
 	public static final String INVALID_INPUT_MESSAGE_2 = BOLD_FORMAT + TAB + "Input non valido" + RESET_FORMAT;
 	public static final String INSERT_VALID_OPTION_MENU_MESSAGE = "Inserire un'opzione valida" + RESET_FORMAT;
@@ -151,9 +144,9 @@ public class Constants {
 	public static final String EXCHANGE_PROPOSAL_CLOSED_MESSAGE = TAB + GREEN_FORMAT +"Proposta soddisfatta e chiusa!" + RESET_FORMAT;
 	public static final String PROPOSAL_SUCCESSFULLY_WITHDRAWN = TAB + YELLOW_FORMAT + "Proposta ritirata!" + RESET_FORMAT;
 	public static final String NO_PROPOSALS = BOLD_FORMAT + "Nessuna proposta presente!" + RESET_FORMAT;
-		//messaggi
+	public static final String NO_CLOSED_SETS = BOLD_FORMAT + "Nessun insieme chiuso!" + RESET_FORMAT;
+	//messaggi
 	public static final String WITHDRAWN_PROPOSAL = "Proposta ritirata: ";
-	public static final String CATEGORY_ASSOCIATED_DOMAIN_MESSAGE = "La categoria associata al dominio %s e': ";
 	public static final String CONVERSION_FACTOR_ASSOCIATES_LEAF_CATEGORY_MESSAGE = "Fattori di conversione associati a: ";
 	public static final String NO_MESSAGE = "n";
 	public static final String YES_MESSAGE = "y";
@@ -194,6 +187,4 @@ public class Constants {
 	public static final String PROPOSALS_FILEPATH = "src/it/unibs/ing/elaborato/resources/proposals.dat";
 	public static final String CLOSED_SETS_FILEPATH = "src/it/unibs/ing/elaborato/resources/closedSets.dat";
 
-
-	public static final String NO_CLOSED_SETS = "Nessun insieme chiuso!";
 }

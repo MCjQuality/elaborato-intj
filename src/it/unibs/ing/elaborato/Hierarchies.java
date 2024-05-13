@@ -3,7 +3,6 @@ package it.unibs.ing.elaborato;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -99,7 +98,7 @@ public class Hierarchies implements Readable, Writable {
 	}
 
 	@Override
-	public void write(String filepath)  throws FileNotFoundException, IOException {
+	public void write(String filepath)  throws IOException {
 		File file = new File(filepath);
 		if (file.createNewFile()) {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));

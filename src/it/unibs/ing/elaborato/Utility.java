@@ -1,6 +1,5 @@
 package it.unibs.ing.elaborato;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -92,24 +91,7 @@ public class Utility {
 		}
 	}
 
-	public static String obscurePassword()
-	{
-		Console console = System.console();
-		if (console == null) {
-			System.out.println("La console non è disponibile.");
-			System.exit(1);
-		}
-
-		char[] password = console.readPassword("Inserisci la password: ");
-		System.out.println("La password inserita è: " + new String(
-				password));
-		// Pulizia della password dalla memoria
-		java.util.Arrays.fill(password, ' ');
-
-		return password.toString();
-	}
-
-	public static boolean isPswValid(char[] psw, int digits_requirement, int letters_requirement) 
+	public static boolean isPswValid(char[] psw, int digits_requirement, int letters_requirement)
 	{
 		int digits = 0;
 		int letters = 0;

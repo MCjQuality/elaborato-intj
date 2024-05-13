@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public abstract class User implements Serializable{
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String psw;
@@ -50,8 +52,7 @@ public abstract class User implements Serializable{
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
+        if (!(o instanceof User user)) return false;
         return getUsername().equals(user.getUsername()) && getPsw().equals(user.getPsw());
     }
 

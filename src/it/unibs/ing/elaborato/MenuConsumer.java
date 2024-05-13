@@ -1,6 +1,5 @@
 package it.unibs.ing.elaborato;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,7 +7,7 @@ public class MenuConsumer {
 
 	private static String createMenuConsumer() 
 	{
-		StringBuffer menuBuffer = new StringBuffer();
+		StringBuilder menuBuffer = new StringBuilder();
 
 		menuBuffer.append(Constants.NEW_LINE);
 		menuBuffer.append(Utility.appendHorizontalLine(Constants.MENU_LINE_SIZE));
@@ -35,9 +34,9 @@ public class MenuConsumer {
 		return menuBuffer.toString();
 	}
 
-	public boolean menuConsumerManager(Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws FileNotFoundException, IOException 
+	public boolean menuConsumerManager(Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws IOException
 	{
-		int index = Constants.NUMBER_0_MESSAGE;
+		int index;
 
 		do 
 		{
@@ -46,10 +45,10 @@ public class MenuConsumer {
 			chooseOptionMenu(index, hierarchies, scanner, consumer, conversionElements, exchangeProposals, closedSets);
 		} while(index != Constants.NUMBER_5_MESSAGE && index != Constants.NUMBER_0_MESSAGE);
 
-		return index == 5 ? true : false; 
+		return index == 5;
 	}
 
-	private void chooseOptionMenu(int choice, Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws FileNotFoundException, IOException 
+	private void chooseOptionMenu(int choice, Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws IOException
 	{
 		switch (choice)
 		{
@@ -106,26 +105,24 @@ public class MenuConsumer {
 
 		int i = 1;
 		for(NotLeafCategory node : hierarchies.getHierarchies()) 
-			result.append(i++ + Constants.SEPARATOR + node.getName() + Constants.NEW_LINE);
+			result.append(i++).append(Constants.SEPARATOR).append(node.getName()).append(Constants.NEW_LINE);
 
-		System.out.println(result.toString());
+		System.out.println(result);
 
 		int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= hierarchies.getHierarchies().size()), scanner));
 		String node_name = hierarchies.getHierarchies().get(index - 1).getName();
 
-		NotLeafCategory node = hierarchies.getHierarchies()
+        return hierarchies.getHierarchies()
 				.stream()
 				.filter(x -> x.getName().equals(node_name))
 				.toList()
-				.get(0);
-
-		return node;
+				.getFirst();
 	}
 
-	private Category navigateHierarchy(Category father, Scanner scanner) 
+	private void navigateHierarchy(Category father, Scanner scanner)
 	{
 		System.out.println();
-		System.out.println(String.format(Constants.ASSOCIATED_NODE_TO_DOMAIN, father.getName()));
+		System.out.printf((Constants.ASSOCIATED_NODE_TO_DOMAIN) + Constants.NEW_LINE, father.getName());
 		System.out.println();
 
 		if(father.hasChildren()) 
@@ -136,15 +133,15 @@ public class MenuConsumer {
 
 			for(Category node : father.getChildren()) 
 			{
-				result.append(i++ + Constants.SEPARATOR);
+				result.append(i++).append(Constants.SEPARATOR);
 				if(!node.hasChildren())
-					result.append(Constants.LIGHT_BLUE_FORMAT + node.getName() + Constants.RESET_FORMAT);
+					result.append(Constants.LIGHT_BLUE_FORMAT).append(node.getName()).append(Constants.RESET_FORMAT);
 				else
 					result.append(node.getName());
 				result.append(Constants.NEW_LINE);
 			}
 
-			System.out.println(result.toString());
+			System.out.println(result);
 
 			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= father.getChildren().size()), scanner));
 
@@ -154,14 +151,13 @@ public class MenuConsumer {
 					.stream()
 					.filter(x -> x.getName().equals(node_name))
 					.toList()
-					.get(0);
+					.getFirst();
 
 			navigateHierarchy(node, scanner);
 		}
-		return father;
 	}
 
-	private void formulateProposal(Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws FileNotFoundException, IOException 
+	private void formulateProposal(Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws IOException
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.ADD_EXCHANGE_PROPOSAL_MENU_MESSAGE, 56));
@@ -219,7 +215,7 @@ public class MenuConsumer {
 		return new ExchangeProposal(couple, hours, consumer, conversionElements);
 	}
 
-	private void withdrawnProposal(Scanner scanner, Consumer consumer, ExchangeProposals exchangeProposals) throws FileNotFoundException, IOException 
+	private void withdrawnProposal(Scanner scanner, Consumer consumer, ExchangeProposals exchangeProposals) throws IOException
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.WITHDRAW_PROPOSAL_MESSAGE, 56));

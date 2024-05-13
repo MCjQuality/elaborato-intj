@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Objects;
  */
 public class LeafCategory extends Category implements Serializable, Cloneable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public LeafCategory(String name, String domain, String description) {
@@ -17,9 +19,8 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
 	}
 
 	public LeafCategory clone() throws CloneNotSupportedException {
-		LeafCategory cloned = (LeafCategory) super.clone();
- 
-		return cloned;
+
+        return (LeafCategory) super.clone();
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
 	@Override
 	List<Category> getChildren()
 	{
-		return new ArrayList<Category>();
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -61,8 +62,7 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
     public boolean equals(Object o)
 	{
         if (this == o) return true;
-        if (!(o instanceof LeafCategory)) return false;
-        LeafCategory leaf = (LeafCategory) o;
+        if (!(o instanceof LeafCategory leaf)) return false;
         return this.getName().equals(leaf.getName());
     }
 

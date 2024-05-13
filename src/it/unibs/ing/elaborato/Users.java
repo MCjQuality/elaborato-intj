@@ -58,7 +58,7 @@ public class Users implements Readable, Writable{
 				String[] parts = line.split(":");
 				String username = parts[0].trim();
 				String psw = parts[1].trim();
-				boolean firstAccess = Boolean.valueOf(parts[2].trim());
+				boolean firstAccess = Boolean.parseBoolean(parts[2].trim());
 				String district = parts[3].trim();
 				String email = parts[4].trim();
 				if(!district.equals("null"))
@@ -73,13 +73,12 @@ public class Users implements Readable, Writable{
 	}
 
 	@Override
-	public void write(String filepath) throws FileNotFoundException, IOException {
+	public void write(String filepath) throws IOException {
 		File file = new File(filepath);
 		FileWriter out = new FileWriter(file);
 		for(User user : users) {
-			if(user instanceof Configurator) {
-				Configurator configurator = (Configurator) user;
-				out.write(user.getUsername() + ":" + user.getPsw() + ":" + configurator.getFirstAccess() + ":" + "null" + ":" + "null" + Constants.NEW_LINE);
+			if(user instanceof Configurator configurator) {
+                out.write(user.getUsername() + ":" + user.getPsw() + ":" + configurator.getFirstAccess() + ":" + "null" + ":" + "null" + Constants.NEW_LINE);
 			}
 			else {
 				Consumer consumer = (Consumer) user;

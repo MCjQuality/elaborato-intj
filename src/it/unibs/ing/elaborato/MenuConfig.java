@@ -1,6 +1,5 @@
 package it.unibs.ing.elaborato;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -45,9 +44,9 @@ public class MenuConfig {
 		return menuBuffer.toString();
 	}
 
-	public boolean menuConfigManager(Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws FileNotFoundException, IOException, CloneNotSupportedException 
+	public boolean menuConfigManager(Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws IOException, CloneNotSupportedException
 	{
-		int index = Constants.NUMBER_0_MESSAGE;
+		int index;
 
 		do 
 		{
@@ -59,8 +58,7 @@ public class MenuConfig {
 		return index == 8;
 	}
 
-	private void chooseOptionMenu(int choice, Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws FileNotFoundException, IOException, CloneNotSupportedException 
-	{
+	private void chooseOptionMenu(int choice, Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws CloneNotSupportedException, IOException {
 		switch (choice)
 		{
 		case Constants.NUMBER_1_MESSAGE:
@@ -71,9 +69,6 @@ public class MenuConfig {
 		case Constants.NUMBER_2_MESSAGE:
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			insertNewHierarchy(hierarchies,conversionElements , scanner);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			break;
 		case Constants.NUMBER_3_MESSAGE:
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
@@ -105,7 +100,7 @@ public class MenuConfig {
 			break;
 		case Constants.NUMBER_7_MESSAGE:
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showClosedSets(closedSets, scanner);
+			showClosedSets(closedSets);
 			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
 			scanner.next();
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
@@ -123,8 +118,7 @@ public class MenuConfig {
 		}
 	}
 
-	private void insertNewDistrict(Districts districts, Scanner scanner) throws FileNotFoundException, IOException 
-	{
+	private void insertNewDistrict(Districts districts, Scanner scanner) throws IOException {
 		System.out.println();
 		System.out.println(Printer.align(Constants.INSERT_NEW_DISTRICT_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
@@ -171,7 +165,7 @@ public class MenuConfig {
 		} while (notValid);
 	}
 
-	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws FileNotFoundException, IOException, CloneNotSupportedException {
+	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws IOException, CloneNotSupportedException {
 		System.out.println();
 		System.out.println(Printer.align(Constants.INSERT_NEW_HIERARCHY_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
@@ -179,7 +173,7 @@ public class MenuConfig {
 		NotLeafCategory root = createRoot(scanner, hierarchies);
 
 		hierarchies.addHierarchy(root);
-		populateTree(root, hierarchies, root, scanner);
+		populateTree(root, root, scanner);
 		hierarchies.write(Constants.HIERARCHIES_FILEPATH);
 
 		System.out.println();
@@ -191,8 +185,11 @@ public class MenuConfig {
 		conversionElements.initialize(hierarchies);
 		if(conversionElements.getConversionElements().size() > 1) 
 		{
-			setConvFact(hierarchies, conversionElements, scanner);
+			setConvFact(conversionElements, scanner);
 			System.out.println(Printer.printConversionElements(conversionElements));
+			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+			scanner.next();
+			Utility.clearConsole(Constants.TRANSACTION_TIME);
 		}
 
 		conversionElements.write(Constants.CONVERSION_ELEMENTS_FILEPATH);
@@ -271,9 +268,9 @@ public class MenuConfig {
 
 			for(ConversionElement elem : conversionElements.getConversionElements())
 				if(elem.getCouple().getFirstLeaf().getName().equals(name))
-					listaFattori.append(Constants.SEPARATOR + Printer.printConversionElement(elem));
+					listaFattori.append(Constants.SEPARATOR).append(Printer.printConversionElement(elem));
 
-			System.out.println(listaFattori.toString());
+			System.out.println(listaFattori);
 			System.out.println();
 		}
 		else
@@ -311,7 +308,7 @@ public class MenuConfig {
 
 			if(!proposalsList.isEmpty())
 			{
-				System.out.println(proposalsList.toString());
+				System.out.println(proposalsList);
 				System.out.println();
 			}
 			else
@@ -327,7 +324,7 @@ public class MenuConfig {
 		}
 	}
 
-	private void showClosedSets(ClosedSets closedSets, Scanner scanner) 
+	private void showClosedSets(ClosedSets closedSets)
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.SHOW_CLOSED_SETS, Constants.MENU_LINE_SIZE));
@@ -341,7 +338,7 @@ public class MenuConfig {
 		}
 
 	}
-	private void populateTree(Category node, Hierarchies hierarchies, NotLeafCategory root, Scanner scanner) 
+	private void populateTree(Category node, NotLeafCategory root, Scanner scanner)
 	{
 		if(node.hasChildren()) 
 		{
@@ -362,14 +359,14 @@ public class MenuConfig {
 
 				if(index == 1) 
 				{
-					LeafCategory leaf = createLeaf(hierarchies, root, scanner);
+					LeafCategory leaf = createLeaf(root, scanner);
 					tmp.addChildren(leaf);
 				}
 				else if (index == 2)
 				{
 					NotLeafCategory radice = createNotLeaf(root, scanner);
 					tmp.getChildren().add(radice);
-					populateTree(radice, hierarchies, root, scanner);
+					populateTree(radice, root, scanner);
 				}
 				else if(tmp.getLeaves().isEmpty())
 					System.out.println(Constants.NO_LEAVES);
@@ -378,7 +375,7 @@ public class MenuConfig {
 		}
 	}
 
-	private void setConvFact(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) 
+	private void setConvFact(ConversionElements conversionElements, Scanner scanner)
 	{
 		boolean notValid2;
 		do 
@@ -446,7 +443,7 @@ public class MenuConfig {
 		} while(conversionElements.isFactConvPresent(0.) || notValid2);
 	}
 
-	private LeafCategory createLeaf(Hierarchies hierarchies, Category root, Scanner scanner) 
+	private LeafCategory createLeaf(Category root, Scanner scanner)
 	{
 		String name = Utility.check2Condition(Constants.INSERT_CATEGORY_NAME_MASSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.CATEGORY_ALREADY_INSERT, String::isBlank, root::contains, scanner);
 		String nameDomain = Utility.checkCondition(Constants.SPECIFY_DOMAIN_NAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
