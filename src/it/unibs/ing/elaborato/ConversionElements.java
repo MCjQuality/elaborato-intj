@@ -3,7 +3,6 @@ package it.unibs.ing.elaborato;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,23 +17,23 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 
 	private List<ConversionElement> list;
 
-	public ConversionElements() {
-		list = new ArrayList<ConversionElement>();
+	public ConversionElements()
+	{
+		list = new ArrayList<>();
 	}
 
-	public void addFactConv(ConversionElement elem) {
+	public void addFactConv(ConversionElement elem)
+	{
 		list.add(elem);
 	}
 
-	public ConversionElement getConversionElement(LeafCategory leaf1, LeafCategory leaf2)
+	public boolean isCouplePresent(Couple couple)
 	{
-		return list.stream().filter(s->(s.getCouple().getFirstLeaf().equals(leaf1) && s.getCouple().getSecondLeaf().equals(leaf2))).toList().getFirst();
-	}
-	public boolean isCouplePresent(Couple couple) {
 		return list.stream().anyMatch(s -> s.getCouple().equals(couple));
 	}
 
-	public int size() {
+	public int size()
+	{
 		return list.size();
 	}
 
@@ -48,27 +47,33 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		list.stream().filter(s -> s.getCouple().equals(coupleToFind)).forEach(s -> s.setConversionFactor(l));
 	}
 
-	public List<ConversionElement> getRemainingConversionElements() {
+	public List<ConversionElement> getRemainingConversionElements()
+	{
 		return list.stream().filter(s -> s.getConversionFactor() == 0).toList();
 	}
 
-	public double[] getConversionFactorRange(Couple elem) {
+	public double[] getConversionFactorRange(Couple elem)
+	{
 		double [] x = new double [] {2.1, 0.4};
 		ArrayList<ConversionElement> lista = (ArrayList<ConversionElement>)getConversionElementsCompatible(elem);
-		if(lista.isEmpty()) {
+
+		if(lista.isEmpty())
+		{
 			x[0] = 0.5;
 			x[1] = 2.0;
 			return x;
 		}
-		else {
-			for(ConversionElement conv : lista) {
+		else
+		{
+			for(ConversionElement conv : lista)
+			{
 				if(conv.getConversionFactor() < x[0])
 					x[0] = conv.getConversionFactor();
 				if(conv.getConversionFactor() > x[1])
 					x[1] = conv.getConversionFactor();
 			}
-			x[0] = 0.5/x[0];
-			x[1] = 2/x[1];
+			x[0] = Math.ceil((0.5 / x[0]) * 100) / 100.;
+			x[1] = Math.floor((2 / x[1]) * 100) / 100.;
 			if(x[0] < 0.5)
 				x[0] = 0.5;
 			if(x[1] > 2.0)
@@ -78,18 +83,21 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		}
 	}
 
-	public List<ConversionElement> getConversionElementsCompatible(Couple elem) {
+	public List<ConversionElement> getConversionElementsCompatible(Couple elem)
+	{
 		ArrayList<ConversionElement> lista = new ArrayList<>();
 		for(ConversionElement conv : list) {
 			if(conv.getConversionFactor() != 0.0 && (elem.getFirstLeaf().equals(conv.getCouple().getSecondLeaf()) 
-					|| elem.getSecondLeaf().equals(conv.getCouple().getFirstLeaf()))) {
+					|| elem.getSecondLeaf().equals(conv.getCouple().getFirstLeaf())))
+			{
 					lista.add(conv);
 			}
 		}
 		return lista;
 	}
 	
-	public List<ConversionElement> getConversionElements() {
+	public List<ConversionElement> getConversionElements()
+	{
 		return list;
 	}
 
@@ -117,15 +125,16 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 						for(ConversionElement elem3 : compatibles.getConversionElements())
 							if (hasLeafInCommon(elem2, elem3))
 							{
-								double newConvFact = elem2.getConversionFactor() * elem3.getConversionFactor();
+								double newConvFact = (elem2.getConversionFactor() * elem3.getConversionFactor());
 								Couple couple = elem.getCouple();
 								replace(couple, newConvFact);
-								replace(new Couple(elem.getCouple().getSecondLeaf(), elem.getCouple().getFirstLeaf()), 1 / newConvFact);
+								replace(new Couple(elem.getCouple().getSecondLeaf(), elem.getCouple().getFirstLeaf()), (1 / newConvFact));
 							}
 			}
 	}
 
-	public ConversionElements getCompatibleElements(ConversionElement conversionElement) {
+	public ConversionElements getCompatibleElements(ConversionElement conversionElement)
+	{
 		ConversionElements compatibles = new ConversionElements();
 		for(ConversionElement elem : list)
 			if(elem.getConversionFactor() != 0)
@@ -144,7 +153,8 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 	}
 
 
-	public void update(Hierarchies hierarchies) throws CloneNotSupportedException {
+	public void update(Hierarchies hierarchies) throws CloneNotSupportedException
+	{
 		for(LeafCategory leaf : hierarchies.getLeaves())
 			if(hierarchies.isLeafDuplicated(leaf))
 				for(ConversionElement elem : list)
@@ -173,12 +183,13 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 				}
 	}
 
-	public void initialize(Hierarchies hierarchies) throws CloneNotSupportedException {
+	public void initialize(Hierarchies hierarchies) throws CloneNotSupportedException
+	{
 		for (int i = 0; i < hierarchies.getLeaves().size(); i++)
 			for (int j = 0; j < hierarchies.getLeaves().size(); j++)
 				if(!hierarchies.getLeaves().get(i).getName().equals(hierarchies.getLeaves().get(j).getName()))
 				{
-					Couple couple = null;
+					Couple couple;
 					if(hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(i)) && hierarchies.isLeafDuplicated(hierarchies.getLeaves().get(j)))
 					{
 						LeafCategory leaf1 = hierarchies.getLeaves().get(i).clone();
@@ -210,7 +221,8 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 				}
 	}
 
-	public ConversionElements clone() throws CloneNotSupportedException {
+	public ConversionElements clone() throws CloneNotSupportedException
+	{
 		ConversionElements cloned = (ConversionElements) super.clone();
 
 		cloned.list = new ArrayList<>();
@@ -221,7 +233,8 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 	}
 
 	@Override
-	public void write(String filepath) throws FileNotFoundException, IOException {
+	public void write(String filepath) throws IOException
+	{
 		File file = new File(filepath);
 		if (file.createNewFile()) {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -235,7 +248,8 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 	}
 
 	@Override
-	public void read(String filepath) {
+	public void read(String filepath)
+	{
 		try {
 			File file = new File(filepath);
 			if (!file.createNewFile()) {

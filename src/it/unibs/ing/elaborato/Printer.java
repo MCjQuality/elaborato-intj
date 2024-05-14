@@ -9,7 +9,7 @@ public class Printer {
 
 	public static String align (String s, int larghezza)
 	{
-		StringBuffer res = new StringBuffer(larghezza);
+		StringBuilder res = new StringBuilder(larghezza);
 		if (larghezza <= s.length())
 			res.append(s.substring(larghezza));
 		else
@@ -49,26 +49,26 @@ public class Printer {
 
 	public static String printLeaves(List<LeafCategory> leaves) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		int i = 1;
 		for (LeafCategory leaf : leaves) {
-			result.append(i++ + Constants.SEPARATOR + leaf.getName() +  Constants.NEW_LINE);
+			result.append(i++).append(Constants.SEPARATOR).append(leaf.getName()).append(Constants.NEW_LINE);
 		}
 		return result.toString();
 	}
 
 	public static String printHierarchy(Category radice, int depth) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		for (int i = 0; i < depth; i++)
 			result.append(Constants.TAB);
 
 		if(radice.hasChildren())
-			result.append(radice.getName() + Constants.NEW_LINE);
+			result.append(radice.getName()).append(Constants.NEW_LINE);
 		else
-			result.append(radice.getName() + Constants.NEW_LINE);
+			result.append(radice.getName()).append(Constants.NEW_LINE);
 
 		for(Category figlio : radice.getChildren())
 			result.append(printHierarchy(figlio, depth + 1));
@@ -78,11 +78,11 @@ public class Printer {
 
 	public static String printHierarchyRoots(Hierarchies hierarchies) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		int i = 1;
 		for (Category nodo : hierarchies.getHierarchies())
-			result.append(i++ +  Constants.SEPARATOR + nodo.getName() + Constants.NEW_LINE);
+			result.append(i++).append(Constants.SEPARATOR).append(nodo.getName()).append(Constants.NEW_LINE);
 
 		return result.toString();
 	}
@@ -90,12 +90,12 @@ public class Printer {
 	public static String printDistrict(District district) 
 	{
 		StringBuilder result = new StringBuilder();
-		result.append(Constants.NAME_DISTRICT_MESSAGE + district.getName() + Constants.NEW_LINE);
+		result.append(Constants.NAME_DISTRICT_MESSAGE).append(district.getName()).append(Constants.NEW_LINE);
 		result.append(Constants.TERRITORIES_DISTRICT_MESSAGE);
 
 		for (int i = 0; i < district.getTerritories().size(); i++)
 			if (i != district.getTerritories().size() - 1)
-				result.append(district.getTerritories().get(i) + ", ");
+				result.append(district.getTerritories().get(i)).append(", ");
 			else
 				result.append(district.getTerritories().get(i));
 		result.append(Constants.NEW_LINE);
@@ -108,7 +108,7 @@ public class Printer {
 		StringBuilder result = new StringBuilder();
 
 		for(District district : districts.getDistricts())
-			result.append(Constants.NEW_LINE + printDistrict(district));
+			result.append(Constants.NEW_LINE).append(printDistrict(district));
 
 		return result.toString();
 	}
@@ -119,7 +119,7 @@ public class Printer {
 		int i = 0;
 		
 		for(District district : districts.getDistricts()) 
-			result.append(++i + Constants.SEPARATOR + Printer.printDistrict(district) + Constants.NEW_LINE);
+			result.append(++i).append(Constants.SEPARATOR).append(Printer.printDistrict(district)).append(Constants.NEW_LINE);
 
 		return result.toString();
 	}
@@ -132,7 +132,7 @@ public class Printer {
 
 		int i = 1; 
 		for(ConversionElement conversionElement : conversionElements.getRemainingConversionElements())
-			result.append(Utility.addBlank(Integer.toString(i++), 4) + Constants.SEPARATOR + Printer.printCouple(conversionElement.getCouple()) + Constants.NEW_LINE);
+			result.append(Utility.addBlank(Integer.toString(i++), 4)).append(Constants.SEPARATOR).append(Printer.printCouple(conversionElement.getCouple())).append(Constants.NEW_LINE);
 
 		return result.toString();
 	}
@@ -140,8 +140,9 @@ public class Printer {
 	public static String printConversionElements(ConversionElements conversionElements) 
 	{
 		StringBuilder result = new StringBuilder();
+
 		result.append(Constants.NEW_LINE);
-		result.append(Constants.INSERT_CONV_FACT);
+		result.append(Printer.align(Constants.INSERT_CONV_FACT, Constants.MENU_LINE_SIZE));
 		result.append(Constants.DOUBLE_NEW_LINE);
 		result.append(Constants.FIXED_CONVERSION_FACTOR_MESSAGE);
 		result.append(Constants.NEW_LINE);
@@ -165,7 +166,7 @@ public class Printer {
 
 	public static String printExtendHierarchy(Category root) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		result.append(Constants.NEW_LINE);
 
@@ -182,36 +183,36 @@ public class Printer {
 
 	public static String printLeaf(LeafCategory leaf) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
-		result.append(Constants.NAME_MESSAGE + Constants.SEPARATOR + leaf.getName() + Constants.NEW_LINE);
-		result.append(Constants.DOMAIN_MESSAGE + Constants.SEPARATOR + leaf.getDomain() + Constants.NEW_LINE);
+		result.append(Constants.NAME_MESSAGE + Constants.SEPARATOR).append(leaf.getName()).append(Constants.NEW_LINE);
+		result.append(Constants.DOMAIN_MESSAGE + Constants.SEPARATOR).append(leaf.getDomain()).append(Constants.NEW_LINE);
 		if(!(leaf.getDescription() == null))
-			result.append(Constants.DESCRIPTION_MESSAGE + Constants.SEPARATOR + leaf.getDescription() + Constants.NEW_LINE);
+			result.append(Constants.DESCRIPTION_MESSAGE + Constants.SEPARATOR).append(leaf.getDescription()).append(Constants.NEW_LINE);
 
 		return result.toString();
 	}
 
 	public static String printNotLeaf(NotLeafCategory root) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
-		result.append(Constants.NAME_MESSAGE + Constants.SEPARATOR + root.getName() + Constants.NEW_LINE);
+		result.append(Constants.NAME_MESSAGE + Constants.SEPARATOR).append(root.getName()).append(Constants.NEW_LINE);
 		if(root.getDomain() != null)
-			result.append(Constants.DOMAIN_MESSAGE + Constants.SEPARATOR + root.getDomain() + Constants.NEW_LINE);
+			result.append(Constants.DOMAIN_MESSAGE + Constants.SEPARATOR).append(root.getDomain()).append(Constants.NEW_LINE);
 		if(root.getDescription() != null)
-			result.append(Constants.DESCRIPTION_MESSAGE + Constants.SEPARATOR + root.getDescription() + Constants.NEW_LINE);
-		result.append(Constants.FIELD_MESSAGE + Constants.SEPARATOR + root.getField() + Constants.NEW_LINE);
+			result.append(Constants.DESCRIPTION_MESSAGE + Constants.SEPARATOR).append(root.getDescription()).append(Constants.NEW_LINE);
+		result.append(Constants.FIELD_MESSAGE + Constants.SEPARATOR).append(root.getField()).append(Constants.NEW_LINE);
 
 		return result.toString();
 	}
 
 	public static String printExchangeProposal(ExchangeProposal exchangeProposal)
 	{
-		StringBuffer result = new StringBuffer();
-		result.append(Constants.REQUEST_MESSAGE + Constants.SQUARE_BRACKETS1 + exchangeProposal.getCouple().getFirstLeaf().getName() + Constants.COMMA + exchangeProposal.getHoursRequest() + Constants.SQUARE_BRACKETS2);
+		StringBuilder result = new StringBuilder();
+		result.append(Constants.REQUEST_MESSAGE + Constants.SQUARE_BRACKETS1).append(exchangeProposal.getCouple().getFirstLeaf().getName()).append(Constants.COMMA).append(exchangeProposal.getHoursRequest()).append(Constants.SQUARE_BRACKETS2);
 		result.append(Constants.NEW_LINE);
-		result.append(Constants.OFFERT_MESSAGE + Constants.SQUARE_BRACKETS1 + exchangeProposal.getCouple().getSecondLeaf().getName() + Constants.COMMA + Constants.GRAY_FORMAT + exchangeProposal.getHoursOffered() + Constants.RESET_FORMAT + Constants.SQUARE_BRACKETS2);
+		result.append(Constants.OFFERT_MESSAGE + Constants.SQUARE_BRACKETS1).append(exchangeProposal.getCouple().getSecondLeaf().getName()).append(Constants.COMMA).append(Constants.LIGHT_BLUE_FORMAT).append(exchangeProposal.getHoursOffered()).append(Constants.RESET_FORMAT).append(Constants.SQUARE_BRACKETS2);
 		result.append(Constants.NEW_LINE);
 
 		return result.toString();
@@ -219,7 +220,7 @@ public class Printer {
 
 	public static String printExchangeProposalWithSatus(ExchangeProposal exchangeProposal)
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append(Constants.NEW_LINE);
 		if(exchangeProposal.getState() == State.OPEN)
 			result.append(Constants.GREEN_FORMAT + Constants.OPEN + Constants.RESET_FORMAT);
@@ -227,16 +228,35 @@ public class Printer {
 			result.append(Constants.RED_FORMAT + Constants.CLOSED + Constants.RESET_FORMAT);
 		else
 			result.append(Constants.YELLOW_FORMAT + Constants.WITHDRAWN + Constants.RESET_FORMAT);
-		result.append(Constants.NEW_LINE + printExchangeProposal(exchangeProposal));
+		result.append(Constants.NEW_LINE).append(printExchangeProposal(exchangeProposal));
 		return result.toString();
 	}
 
 	public static String printExchangeProposals(List<ExchangeProposal> list) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		for(ExchangeProposal elem : list) 
 		{
+			result.append(printExchangeProposal(elem));
+			result.append(Constants.NEW_LINE);
+		}
+
+		return result.toString();
+	}
+
+	public static String printExchangeProposalsWithConsumer(List<ExchangeProposal> list)
+	{
+		StringBuilder result = new StringBuilder();
+
+		for(ExchangeProposal elem : list)
+		{
+			result.append(Constants.CONSUMER);
+			result.append(elem.getOwner().getUsername());
+			result.append(Constants.NEW_LINE);
+			result.append(Constants.MAIL);
+			result.append(elem.getOwner().getEmail());
+			result.append(Constants.NEW_LINE);
 			result.append(printExchangeProposal(elem));
 			result.append(Constants.NEW_LINE);
 		}
@@ -246,12 +266,12 @@ public class Printer {
 
 	public static String printNumberedExchangeProposals(List<ExchangeProposal> list) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append(Constants.DOUBLE_NEW_LINE);
 		int i = 1;
 		for(ExchangeProposal elem : list) 
 		{
-			result.append(Constants.UNDERLINE + Constants.PROPOSAL + i++ + Constants.NEW_LINE + Constants.RESET_FORMAT);
+			result.append(Constants.UNDERLINE + Constants.PROPOSAL).append(i++).append(Constants.NEW_LINE).append(Constants.RESET_FORMAT);
 			result.append(printExchangeProposal(elem));
 			result.append(Constants.NEW_LINE);
 		}
@@ -261,15 +281,17 @@ public class Printer {
 
 	public static String printClosedSets(ClosedSets closedSets) 
 	{
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		int i = 0;
 		for(ExchangeProposals elem : closedSets.getClosedSets()) 
 		{
 			result.append(String.format(Constants.CLOSED_SETS, ++i));
 			result.append(Constants.NEW_LINE);
-			result.append(Printer.printExchangeProposals(elem.getExchangeProposals()));
+			result.append(Printer.printExchangeProposalsWithConsumer(elem.getExchangeProposals()));
+			result.append(Constants.NEW_LINE);
 		}
+
 		return result.toString();
 	}
 

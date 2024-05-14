@@ -12,7 +12,7 @@ public class MenuConsumer {
 		menuBuffer.append(Constants.NEW_LINE);
 		menuBuffer.append(Utility.appendHorizontalLine(Constants.MENU_LINE_SIZE));
 		menuBuffer.append(Constants.NEW_LINE);
-		menuBuffer.append(Printer.align(Constants.MENU_MESSAGE, 56));
+		menuBuffer.append(Printer.align(Constants.MENU_MESSAGE, Constants.MENU_LINE_SIZE));
 		menuBuffer.append(Constants.NEW_LINE);
 		menuBuffer.append(Utility.appendHorizontalLine(Constants.MENU_LINE_SIZE));
 		menuBuffer.append(Constants.NEW_LINE);
@@ -41,11 +41,11 @@ public class MenuConsumer {
 		do 
 		{
 			System.out.print(createMenuConsumer());
-			index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 0 && Integer.parseInt(input) <= 5), scanner));
+			index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_0_MESSAGE && Integer.parseInt(input) <= Constants.NUMBER_5_MESSAGE), scanner));
 			chooseOptionMenu(index, hierarchies, scanner, consumer, conversionElements, exchangeProposals, closedSets);
 		} while(index != Constants.NUMBER_5_MESSAGE && index != Constants.NUMBER_0_MESSAGE);
 
-		return index == 5;
+		return index == Constants.NUMBER_5_MESSAGE;
 	}
 
 	private void chooseOptionMenu(int choice, Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws IOException
@@ -84,33 +84,33 @@ public class MenuConsumer {
 	private void navigate(Hierarchies hierarchies, Scanner scanner) 
 	{
 		System.out.println();
-		System.out.println(Printer.align(Constants.NAVIGATE_THROUGH_HIERARCHIES_MESSAGE, 56));
+		System.out.println(Printer.align(Constants.NAVIGATE_THROUGH_HIERARCHIES_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
-		if(!hierarchies.getHierarchies().isEmpty()) 
+		if(!hierarchies.getHierarchies().isEmpty())
 		{
 			navigateHierarchy(navigateRoots(hierarchies, scanner), scanner);
 			Utility.clearConsole(Constants.READING_TIME);
 		}
-		else 
+		else
 		{
 			System.out.println(Constants.NO_HIERARCHY);
 			Utility.clearConsole(Constants.READING_TIME);
 		}
 	}
 
-	private NotLeafCategory navigateRoots(Hierarchies hierarchies, Scanner scanner) 
+	private NotLeafCategory navigateRoots(Hierarchies hierarchies, Scanner scanner)
 	{
 		StringBuffer result = new StringBuffer();
 
-		int i = 1;
-		for(NotLeafCategory node : hierarchies.getHierarchies()) 
+		int i = Constants.NUMBER_1_MESSAGE;
+		for(NotLeafCategory node : hierarchies.getHierarchies())
 			result.append(i++).append(Constants.SEPARATOR).append(node.getName()).append(Constants.NEW_LINE);
 
 		System.out.println(result);
 
-		int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= hierarchies.getHierarchies().size()), scanner));
-		String node_name = hierarchies.getHierarchies().get(index - 1).getName();
+		int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_1_MESSAGE && Integer.parseInt(input) <= hierarchies.getHierarchies().size()), scanner));
+		String node_name = hierarchies.getHierarchies().get(index - Constants.NUMBER_1_MESSAGE).getName();
 
         return hierarchies.getHierarchies()
 				.stream()
@@ -121,31 +121,29 @@ public class MenuConsumer {
 
 	private void navigateHierarchy(Category father, Scanner scanner)
 	{
-		System.out.println();
-		System.out.printf((Constants.ASSOCIATED_NODE_TO_DOMAIN) + Constants.NEW_LINE, father.getName());
-		System.out.println();
-
-		if(father.hasChildren()) 
+		if(father.hasChildren())
 		{
+			System.out.println();
+			System.out.printf((Constants.ASSOCIATED_NODE_TO_DOMAIN) + Constants.NEW_LINE, father.getName());
+
+			Utility.clearConsole(Constants.READING_TIME);
+
+			System.out.println();
+			System.out.println(Printer.align(Constants.NAVIGATE_THROUGH_HIERARCHIES_MESSAGE, Constants.MENU_LINE_SIZE));
+			System.out.println();
+
 			StringBuffer result = new StringBuffer();
 			String node_name;
-			int i = 1;
+			int i = Constants.NUMBER_1_MESSAGE;
 
-			for(Category node : father.getChildren()) 
-			{
-				result.append(i++).append(Constants.SEPARATOR);
-				if(!node.hasChildren())
-					result.append(Constants.LIGHT_BLUE_FORMAT).append(node.getName()).append(Constants.RESET_FORMAT);
-				else
-					result.append(node.getName());
-				result.append(Constants.NEW_LINE);
-			}
+			System.out.println(((NotLeafCategory) father).getField() + Constants.COLONS);
+			for(Category node : father.getChildren())
+				result.append(i++).append(Constants.SEPARATOR).append(node.getDomain()).append(Constants.NEW_LINE);
 
 			System.out.println(result);
 
-			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= father.getChildren().size()), scanner));
-
-			node_name = father.getChildren().get(index - 1).getName();
+			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_1_MESSAGE && Integer.parseInt(input) <= father.getChildren().size()), scanner));
+			node_name = father.getChildren().get(index - Constants.NUMBER_1_MESSAGE).getName();
 
 			Category node = father.getChildren()
 					.stream()
@@ -155,12 +153,17 @@ public class MenuConsumer {
 
 			navigateHierarchy(node, scanner);
 		}
+		else
+		{
+			System.out.println();
+			System.out.printf((Constants.ASSOCIATED_NODE_TO_DOMAIN), Constants.LIGHT_BLUE_FORMAT + father.getName() + Constants.RESET_FORMAT);
+		}
 	}
 
 	private void formulateProposal(Hierarchies hierarchies, Scanner scanner, Consumer consumer, ConversionElements conversionElements, ExchangeProposals exchangeProposals, ClosedSets closedSets) throws IOException
 	{
 		System.out.println();
-		System.out.println(Printer.align(Constants.ADD_EXCHANGE_PROPOSAL_MENU_MESSAGE, 56));
+		System.out.println(Printer.align(Constants.ADD_EXCHANGE_PROPOSAL_MENU_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
 		if(!hierarchies.getLeaves().isEmpty()) {
@@ -218,7 +221,7 @@ public class MenuConsumer {
 	private void withdrawnProposal(Scanner scanner, Consumer consumer, ExchangeProposals exchangeProposals) throws IOException
 	{
 		System.out.println();
-		System.out.println(Printer.align(Constants.WITHDRAW_PROPOSAL_MESSAGE, 56));
+		System.out.println(Printer.align(Constants.WITHDRAW_PROPOSAL_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
 		if(!exchangeProposals.activeProposalBelongOneConsumer(consumer).isEmpty()) 
@@ -226,13 +229,13 @@ public class MenuConsumer {
 			System.out.printf(Constants.ACTIVE_PROPOSALS_RELATED_TO_A_CONSUMER, consumer.getUsername());
 			System.out.println(Printer.printNumberedExchangeProposals(exchangeProposals.activeProposalBelongOneConsumer(consumer)));
 
-			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_PROPOSAL_NUMBER, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 0 && Integer.parseInt(input) <= exchangeProposals.activeProposalBelongOneConsumer(consumer).size()), scanner));
+			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_PROPOSAL_NUMBER, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_0_MESSAGE && Integer.parseInt(input) <= exchangeProposals.activeProposalBelongOneConsumer(consumer).size()), scanner));
 
-			if(index != 0) 
+			if(index != Constants.NUMBER_0_MESSAGE)
 			{
 				System.out.println();
 				System.out.println(Constants.WITHDRAWN_PROPOSAL);
-				ExchangeProposal elem = exchangeProposals.activeProposalBelongOneConsumer(consumer).get(index - 1);
+				ExchangeProposal elem = exchangeProposals.activeProposalBelongOneConsumer(consumer).get(index - Constants.NUMBER_1_MESSAGE);
 				System.out.println(Printer.printExchangeProposal(elem));
 				elem.changeStatusToWithdrawn();
 				exchangeProposals.write(Constants.PROPOSALS_FILEPATH);
@@ -247,14 +250,14 @@ public class MenuConsumer {
 	private void showProposals(Scanner scanner, Consumer consumer, ExchangeProposals exchangeProposals) 
 	{
 		System.out.println();
-		System.out.println(Printer.align(Constants.SHOW_PROPOSAL, 56));
+		System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
 		System.out.println();
 		System.out.println(Constants.SHOW_OPEN_PROPOSAL);
 		System.out.println(Constants.SHOW_CLOSED_PROPOSAL);
 		System.out.println(Constants.SHOW_WITHDRAWN_PROPOSAL);
 		System.out.println();
 
-		int index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 3), scanner));
+		int index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_1_MESSAGE && Integer.parseInt(input) <= Constants.NUMBER_3_MESSAGE), scanner));
 
 		switch (index) 
 		{
@@ -262,7 +265,7 @@ public class MenuConsumer {
 		{
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			System.out.println();
-			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, 56));
+			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
 			System.out.println();
 
 			if(!exchangeProposals.activeProposalBelongOneConsumer(consumer).isEmpty())
@@ -283,7 +286,7 @@ public class MenuConsumer {
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 
 			System.out.println();
-			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, 56));
+			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
 			System.out.println();
 
 			if(!exchangeProposals.closedProposalBelongOneConsumer(consumer).isEmpty())
@@ -304,7 +307,7 @@ public class MenuConsumer {
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 
 			System.out.println();
-			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, 56));
+			System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
 			System.out.println();			
 
 			if(!exchangeProposals.withdrawnProposalBelongOneConsumer(consumer).isEmpty())

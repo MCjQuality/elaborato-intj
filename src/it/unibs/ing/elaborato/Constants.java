@@ -15,7 +15,7 @@ public class Constants {
 	public static final String TAB = "\t";
 	public static final String NEW_LINE = "\n";	
 	public static final String DOUBLE_NEW_LINE = "\n\n";
-	public static final String COLONS = " : ";
+	public static final String COLONS = ": ";
 	public static final String SEPARATOR = " - ";
 	public static final String ITALICS = "\033[1m\033[3m";
 	public static final String UNDERLINE = "\033[4m";
@@ -51,16 +51,18 @@ public class Constants {
 	public static final String PASSWORD_MESSAGE = "password: ";
 	public static final String MAIL_MESSAGE = "mail: ";
 	public static final String INSERT_NEW_USERNAME = "Inserisci nuovo username: ";
-	public static final String INSERT_NEW_PSW = "Inserisci nuova password: ";
+	public static final String INSERT_NEW_PSW = "Inserisci nuova password (min %d cifre - %d lettere): ";
 	public static final String LINE_SEPARATOR = "line.separator";
-	public static final String INVALID_PSW = "La password deve essere di almeno 5 caratteri, di cui almeno una cifra";
 	public static final String FILE_NOT_FOUND = BOLD_FORMAT + "Alcuni dei file non sono stati recuperati correttamente" + RESET_FORMAT;
 	public static final String IOEXCEPTION = BOLD_FORMAT + "Ci sono stati problemi nella scrittura sui file" + RESET_FORMAT;
 	public static final String USERNAME_ALREADY_EXSIST_MESSAGE = BOLD_FORMAT + TAB + "Username gia' registrato, reinserire: " + RESET_FORMAT;
-	public static final String INSERT_PASSWORD_MATCHES_PREVIOUS_MESSAGE = "La password inserita corrisponde con quella precedente!";
+	public static final String INSERT_PASSWORD_MATCHES_PREVIOUS_MESSAGE = BOLD_FORMAT + TAB + "Password uguale alla precedente, reinserire: " + RESET_FORMAT;
 	public static final String REGISTRATION_AS_USER_MESSAGE = "Vuoi registrarti come fruitore (y/n)? ";
 	public static final String INSERT_VALID_MAIL_ADDRESS = BOLD_FORMAT + TAB + "Inserire un indirizzo mail valido: " + RESET_FORMAT;
-	
+	public static final String AGGIORNAMENTO_CREDENZIALI = GRAY_FORMAT + "-AGGIORNAMENTO CREDENZIALI-" + RESET_FORMAT;
+	public static final String CREDENTIALS_UPDATED = Constants.GREEN_FORMAT + "Credenziali aggiornate!" + Constants.RESET_FORMAT;
+
+
 	//menu
 		//sottotitoli
 	public static final String INSERT_NEW_DISTRICT_MESSAGE = GRAY_FORMAT + "-INSERIMENTO TERRITORIO-" + RESET_FORMAT;
@@ -111,7 +113,7 @@ public class Constants {
 	public static final String SELECT_FROM_THE_OPTIONS_MESSAGE = "Seleziona tra le opzioni: ";
 	public static final String INSERT_CATEGORY_DESCRIPTION_MESSAGE = "Inserisci la descrizione: ";
 	public static final String DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE = "Vuoi inserire descrizione associata al dominio (y/n)? ";
-	public static final String INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY = "Inserire numero relativo alla gerarchia che si vuole visualizzare: ";
+	public static final String INSERT_THE_NUMBER_RELATED_TO_THE_HIERARCHY = "Inserire numero: ";
 	public static final String HOURS_REQUESTED = "Inserisci le ore di prestazione richieste: ";
 	public static final String SERVICE_OFFERED = "Inserisci il servizio offerto: ";
 	public static final String SERVICE_REQUESTED = "Inserisci il servizio richiesto: ";
@@ -136,7 +138,7 @@ public class Constants {
 	public static final String NO_CONV_FACT = BOLD_FORMAT + "Nessun fattore di conversione presente!" + RESET_FORMAT;
 	public static final String NO_LEAVES = BOLD_FORMAT + TAB + 	"Non sono ancora state aggiunte categorie foglia!" + RESET_FORMAT;
 	public static final String PRESS_ANY_BUTTONS_TO_GO_BACK = ITALICS + "Premi invio per tornare al menù" + RESET_FORMAT;
-	public static final String LEAF_CATEGORY_DOES_NOT_EXIST = BOLD_FORMAT + "Servizio inesistente, reinserire: " + RESET_FORMAT;
+	public static final String LEAF_CATEGORY_DOES_NOT_EXIST = BOLD_FORMAT + TAB+ "Servizio inesistente, reinserire: " + RESET_FORMAT;
 	public static final String PROPOSAL_SAVED_MESSAGE = YELLOW_FORMAT + TAB + "Proposta salvata!" + RESET_FORMAT;
 	public static final String PROPOSAL_NOT_SAVED_MESSAGE = YELLOW_FORMAT + TAB + "Proposta non salvata!"  + RESET_FORMAT;
 	public static final String NO_HIERARCHY = BOLD_FORMAT + "Nessuna gerarchia presente!" + RESET_FORMAT;
@@ -171,7 +173,7 @@ public class Constants {
 	public static final String FIELD_MESSAGE = "Campo: ";
 	public static final String TREE_PRINT_OF_HIERARCHY_MESSAGE = GRAY_FORMAT + " -Visualizzazione ad albero-" + RESET_FORMAT;
 	public static final String COMPLETE_PRINT_OF_HIERARCHY_MESSAGE = GRAY_FORMAT + " -Visualizzazione completa-" + RESET_FORMAT;
-	public static final String CLOSED_SETS = BOLD_FORMAT + "Insieme %d" + RESET_FORMAT;
+	public static final String CLOSED_SETS = BOLD_FORMAT + UNDERLINE + "Insieme %d" + RESET_FORMAT;
 	public static final String REQUEST_MESSAGE = "Richiesta:";
 	public static final String OFFERT_MESSAGE = "Offerta:";
 	public static final String OPEN = "APERTA";
@@ -187,4 +189,8 @@ public class Constants {
 	public static final String PROPOSALS_FILEPATH = "src/it/unibs/ing/elaborato/resources/proposals.dat";
 	public static final String CLOSED_SETS_FILEPATH = "src/it/unibs/ing/elaborato/resources/closedSets.dat";
 
+	public static final int DIGITS_REQUIREMENT = 4;
+	public static final int LETTERS_REQUIREMENT = 0;
+	public static final String CONSUMER = "Fruitore: ";
+	public static final String MAIL = "Mail: ";
 }

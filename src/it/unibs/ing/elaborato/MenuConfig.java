@@ -58,7 +58,8 @@ public class MenuConfig {
 		return index == 8;
 	}
 
-	private void chooseOptionMenu(int choice, Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws CloneNotSupportedException, IOException {
+	private void chooseOptionMenu(int choice, Districts districts, Hierarchies hierarchies, ConversionElements conversionElements, ExchangeProposals proposals, ClosedSets closedSets, Scanner scanner) throws CloneNotSupportedException, IOException
+	{
 		switch (choice)
 		{
 		case Constants.NUMBER_1_MESSAGE:
@@ -118,7 +119,8 @@ public class MenuConfig {
 		}
 	}
 
-	private void insertNewDistrict(Districts districts, Scanner scanner) throws IOException {
+	private void insertNewDistrict(Districts districts, Scanner scanner) throws IOException
+	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.INSERT_NEW_DISTRICT_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
@@ -165,7 +167,8 @@ public class MenuConfig {
 		} while (notValid);
 	}
 
-	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws IOException, CloneNotSupportedException {
+	private void insertNewHierarchy(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws IOException, CloneNotSupportedException
+	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.INSERT_NEW_HIERARCHY_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
@@ -329,15 +332,16 @@ public class MenuConfig {
 		System.out.println();
 		System.out.println(Printer.align(Constants.SHOW_CLOSED_SETS, Constants.MENU_LINE_SIZE));
 		System.out.println();
+
 		if(!closedSets.getClosedSets().isEmpty())
-			System.out.println(Printer.printClosedSets(closedSets));
+			System.out.print(Printer.printClosedSets(closedSets));
 		else
 		{
 			System.out.println(Constants.NO_CLOSED_SETS);
 			System.out.println();
 		}
-
 	}
+
 	private void populateTree(Category node, NotLeafCategory root, Scanner scanner)
 	{
 		if(node.hasChildren()) 
@@ -483,5 +487,4 @@ public class MenuConfig {
 
 		return new NotLeafCategory(name, null, null, field);
 	}
-
 }
