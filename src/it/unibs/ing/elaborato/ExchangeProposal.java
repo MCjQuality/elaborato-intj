@@ -27,7 +27,8 @@ public class ExchangeProposal implements Serializable {
 		this.pastStates = new ArrayList<>();
 	}
 	
-	public void addTransition(State state) {
+	public void addTransition(State state)
+	{
 		pastStates.add(state);
 	}
 	

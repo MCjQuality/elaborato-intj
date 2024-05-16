@@ -95,7 +95,7 @@ public class Printer {
 
 		for (int i = 0; i < district.getTerritories().size(); i++)
 			if (i != district.getTerritories().size() - 1)
-				result.append(district.getTerritories().get(i)).append(", ");
+				result.append(district.getTerritories().get(i)).append(Constants.COMMA);
 			else
 				result.append(district.getTerritories().get(i));
 		result.append(Constants.NEW_LINE);
@@ -155,7 +155,7 @@ public class Printer {
 
 	public static String printConversionElement(ConversionElement conversionElement) 
 	{
-		String formatFactor = String.format(Constants.NUMBER_FORMAT, conversionElement.getConversionFactor());		
+		String formatFactor = String.format(Constants.NUMBER_FORMAT, Math.round(conversionElement.getConversionFactor() * 100) / 100.);
 		return (printCouple(conversionElement.getCouple()) + Constants.COLONS + Constants.LIGHT_BLUE_FORMAT + formatFactor + Constants.RESET_FORMAT + Constants.NEW_LINE);
 	}
 
@@ -175,8 +175,8 @@ public class Printer {
 		else
 		{
 			result.append(printNotLeaf((NotLeafCategory)root));
-			for(Category figlio : root.getChildren())
-				result.append(printExtendHierarchy(figlio));
+			for(Category child : root.getChildren())
+				result.append(printExtendHierarchy(child));
 		}
 		return result.toString();
 	}

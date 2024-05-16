@@ -15,7 +15,8 @@ public class Utility {
 	public static String appendHorizontalLine(int length) 
 	{
 		StringBuilder buffer = new StringBuilder();
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++)
+		{
 			buffer.append("─");
 		}
 		return buffer.toString();
@@ -26,11 +27,12 @@ public class Utility {
 		T toReturn;
 		
 		System.out.print(textToPrint);
-		do {
+		do
+		{
 			toReturn = (T) scanner.next();
-			if(condition.test((T) toReturn))
+			if(condition.test(toReturn))
 				System.out.print(errorMessage);
-		} while (condition.test((T) toReturn));
+		} while (condition.test(toReturn));
 
 		return toReturn;
 	}
@@ -54,10 +56,12 @@ public class Utility {
 
 	public static boolean isPresent(String filepath, String textToFind) 
 	{
-		try {
+		try
+		{
 			Scanner scanner = new Scanner(new File(filepath));
 
-			while (scanner.hasNextLine()) {
+			while (scanner.hasNextLine())
+			{
 				String line = scanner.nextLine();
 
 				if(line.equalsIgnoreCase(textToFind))
@@ -75,7 +79,8 @@ public class Utility {
 
 	public static void clearConsole(int millis) 
 	{
-		try {
+		try
+		{
 			final String os = System.getProperty("os.name");
 
 			Thread.sleep(millis);
@@ -95,7 +100,8 @@ public class Utility {
 	{
 		int digits = 0;
 		int letters = 0;
-		for(char c : psw) {
+		for(char c : psw)
+		{
 			if(Character.isLetter(c))
 				letters++;
 			else if (Character.isDigit(c))
@@ -108,7 +114,8 @@ public class Utility {
 	{
 		int numSpacesToAdd = n - string.length();
 
-		if (numSpacesToAdd > 0) {
+		if (numSpacesToAdd > 0)
+		{
 			string += " ".repeat(numSpacesToAdd);
 		}
 

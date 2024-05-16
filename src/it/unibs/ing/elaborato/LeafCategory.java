@@ -14,17 +14,20 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	public LeafCategory(String name, String domain, String description) {
+	public LeafCategory(String name, String domain, String description)
+	{
 		super(name, domain, description);
 	}
 
-	public LeafCategory clone() throws CloneNotSupportedException {
+	public LeafCategory clone() throws CloneNotSupportedException
+	{
 
         return (LeafCategory) super.clone();
 	}
 
 	@Override
-	List<Category> getLeaves() {
+	List<Category> getLeaves()
+	{
 		List<Category> leaf = new ArrayList<>();
 		leaf.add(this);
 		
@@ -32,7 +35,8 @@ public class LeafCategory extends Category implements Serializable, Cloneable {
 	}
 
 	@Override
-	public boolean hasChildren() {
+	public boolean hasChildren()
+	{
 		return false;
 	}
 

@@ -25,23 +25,28 @@ public class Users implements Readable, Writable{
 
 	private List<User> users;
 
-	public Users() {
+	public Users()
+	{
 		users = new ArrayList<>();
 	}
 	
-	public void add(User user) {
+	public void add(User user)
+	{
 		users.add(user);
 	}
 
-	public boolean checkUser(String username, String psw) {
+	public boolean checkUser(String username, String psw)
+	{
 		return users.stream().anyMatch(user -> user.checkUser(username, psw));
 	}
 
-	public boolean contains(String username) {
+	public boolean contains(String username)
+	{
 		return users.stream().anyMatch(user -> user.checkUser(username));
 	}
 
-	public User getUser(String username, String psw) {
+	public User getUser(String username, String psw)
+	{
 		for(User user : users)
 			if(user.checkUser(username, psw))
 				return user;
@@ -49,8 +54,10 @@ public class Users implements Readable, Writable{
 	}
 
 	@Override
-	public void read(String filepath) {
-		try {
+	public void read(String filepath)
+	{
+		try
+		{
 			Scanner scanner = new Scanner(new File(filepath));
 			while (scanner.hasNextLine()) 
 			{
@@ -73,14 +80,17 @@ public class Users implements Readable, Writable{
 	}
 
 	@Override
-	public void write(String filepath) throws IOException {
+	public void write(String filepath) throws IOException
+	{
 		File file = new File(filepath);
 		FileWriter out = new FileWriter(file);
 		for(User user : users) {
-			if(user instanceof Configurator configurator) {
+			if(user instanceof Configurator configurator)
+			{
                 out.write(user.getUsername() + ":" + user.getPsw() + ":" + configurator.getFirstAccess() + ":" + "null" + ":" + "null" + Constants.NEW_LINE);
 			}
-			else {
+			else
+			{
 				Consumer consumer = (Consumer) user;
 				out.write(consumer.getUsername() + ":" + consumer.getPsw() + ":" + "null" + ":" + consumer.getDistrict() + ":" + consumer.getEmail() + Constants.NEW_LINE);
 			}

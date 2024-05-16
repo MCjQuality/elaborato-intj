@@ -43,7 +43,7 @@ public class Main {
 				System.out.println();
 				System.out.println(Constants.LIGHT_BLUE_FORMAT + Constants.ITALICS + Printer.align(Constants.WELCOME_MESSAGE, Constants.MENU_LINE_SIZE) + Constants.RESET_FORMAT);
 				System.out.println();
-				
+
 				String username = Utility.checkCondition(Constants.USERNAME_MESSAGGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
 
 				System.out.print(Constants.PASSWORD_MESSAGE);

@@ -55,9 +55,9 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 	public double[] getConversionFactorRange(Couple elem)
 	{
 		double [] x = new double [] {2.1, 0.4};
-		ArrayList<ConversionElement> lista = (ArrayList<ConversionElement>)getConversionElementsCompatible(elem);
+		ArrayList<ConversionElement> tmp = (ArrayList<ConversionElement>)getConversionElementsCompatible(elem);
 
-		if(lista.isEmpty())
+		if(tmp.isEmpty())
 		{
 			x[0] = 0.5;
 			x[1] = 2.0;
@@ -65,7 +65,7 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 		}
 		else
 		{
-			for(ConversionElement conv : lista)
+			for(ConversionElement conv : tmp)
 			{
 				if(conv.getConversionFactor() < x[0])
 					x[0] = conv.getConversionFactor();
@@ -85,15 +85,15 @@ public class ConversionElements implements Cloneable, Readable, Writable {
 
 	public List<ConversionElement> getConversionElementsCompatible(Couple elem)
 	{
-		ArrayList<ConversionElement> lista = new ArrayList<>();
+		ArrayList<ConversionElement> tmp = new ArrayList<>();
 		for(ConversionElement conv : list) {
 			if(conv.getConversionFactor() != 0.0 && (elem.getFirstLeaf().equals(conv.getCouple().getSecondLeaf()) 
 					|| elem.getSecondLeaf().equals(conv.getCouple().getFirstLeaf())))
 			{
-					lista.add(conv);
+					tmp.add(conv);
 			}
 		}
-		return lista;
+		return tmp;
 	}
 	
 	public List<ConversionElement> getConversionElements()

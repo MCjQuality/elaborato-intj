@@ -47,7 +47,7 @@ public class ClosedSets implements Readable, Writable {
 	}
 	
 	@Override
-	public void write(String filepath) throws FileNotFoundException, IOException 
+	public void write(String filepath) throws IOException
 	{
 		File file = new File(filepath);
 		if (file.createNewFile()) 

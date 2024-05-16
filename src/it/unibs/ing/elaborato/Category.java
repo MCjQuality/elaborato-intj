@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,30 +11,36 @@ import java.util.List;
  */
 public abstract class Category implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String domain;
 	private String description;
 
-	public Category(String name, String domain, String description) {
+	public Category(String name, String domain, String description)
+	{
 		this.name = name;
 		this.domain = domain;
 		this.description = description;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public String getDomain() {
+	public String getDomain()
+	{
 		return domain;
 	}
 
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 

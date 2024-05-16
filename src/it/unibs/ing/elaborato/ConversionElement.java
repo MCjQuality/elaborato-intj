@@ -1,5 +1,6 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -7,32 +8,39 @@ import java.io.Serializable;
  */
 public class ConversionElement implements Serializable, Cloneable {
 
-	public void setCouple(Couple couple) {
+	public void setCouple(Couple couple)
+	{
 		this.couple = couple;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private Couple couple;
 	private double conversionFactor;
 	
-	public ConversionElement(Couple couple, double conversionFactor) {
+	public ConversionElement(Couple couple, double conversionFactor)
+	{
 		this.couple = couple;
 		this.conversionFactor = conversionFactor;
 	}
 
-	public Couple getCouple() {
+	public Couple getCouple()
+	{
 		return couple;
 	}
 
-	public double getConversionFactor() {
+	public double getConversionFactor()
+	{
 		return conversionFactor;
 	}
 
-	public void setConversionFactor(double l) {
+	public void setConversionFactor(double l)
+	{
 		this.conversionFactor = l;
 	}
 	
-	public ConversionElement clone() throws CloneNotSupportedException {
+	public ConversionElement clone() throws CloneNotSupportedException
+	{
 		ConversionElement cloned = (ConversionElement) super.clone();
 		
 		cloned.couple = (Couple) couple.clone();

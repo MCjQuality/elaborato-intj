@@ -52,7 +52,6 @@ public class Constants {
 	public static final String MAIL_MESSAGE = "mail: ";
 	public static final String INSERT_NEW_USERNAME = "Inserisci nuovo username: ";
 	public static final String INSERT_NEW_PSW = "Inserisci nuova password (min %d cifre - %d lettere): ";
-	public static final String LINE_SEPARATOR = "line.separator";
 	public static final String FILE_NOT_FOUND = BOLD_FORMAT + "Alcuni dei file non sono stati recuperati correttamente" + RESET_FORMAT;
 	public static final String IOEXCEPTION = BOLD_FORMAT + "Ci sono stati problemi nella scrittura sui file" + RESET_FORMAT;
 	public static final String USERNAME_ALREADY_EXSIST_MESSAGE = BOLD_FORMAT + TAB + "Username gia' registrato, reinserire: " + RESET_FORMAT;

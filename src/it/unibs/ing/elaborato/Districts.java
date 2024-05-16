@@ -10,28 +10,34 @@ public class Districts implements Readable, Writable {
 
 	private ArrayList<District> districts;
 
-	public Districts() {
+	public Districts()
+	{
 		this.districts = new ArrayList<>();
 	}
 
-	public void addDistrict(District district) {
+	public void addDistrict(District district)
+	{
 		districts.add(district);
 	}
 
-	public ArrayList<District> getDistricts() {
+	public ArrayList<District> getDistricts()
+	{
 		return districts;
 	}
 	
-	public boolean isDistrictDuplicate(String name) {
+	public boolean isDistrictDuplicate(String name)
+	{
 		return districts.stream().anyMatch(district -> district.getName().equals(name));
 	}
 
-	public boolean isMunicipalityDuplicate(String name) {
+	public boolean isMunicipalityDuplicate(String name)
+	{
 		return districts.stream().anyMatch(district -> district.isMunicipalityDuplicate(name));
 	}
 
 	@Override
-	public void read(String filepath) {
+	public void read(String filepath)
+	{
 		try 
 	    {
 	    	File file = new File(filepath);

@@ -1,42 +1,49 @@
 package it.unibs.ing.elaborato;
 
+import java.io.Serial;
 import java.util.Objects;
 
 public class Consumer extends User {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String district;
 
-	public Consumer(String username, String psw, String district, String email) {
+	public Consumer(String username, String psw, String district, String email)
+	{
 		super(username, psw);
 		this.district = district;
 		this.email = email;
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 
-	public String getDistrict() {
+	public String getDistrict()
+	{
 		return district;
 	}
 
 	@Override
-	boolean isConsumer() {
+	boolean isConsumer()
+	{
 		return true;
 	}
 	
 	@Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+	{
         if (this == o) return true;
-        if (!(o instanceof Consumer)) return false;
-        Consumer consumer = (Consumer) o;
+        if (!(o instanceof Consumer consumer)) return false;
         return super.getUsername().equals(consumer.getUsername()) && super.getPsw().equals(consumer.getPsw()) && this.getEmail().equals(consumer.getEmail()) && this.getDistrict().equals(consumer.getDistrict());
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(super.getUsername(), super.getPsw(), email, district);
     }
 

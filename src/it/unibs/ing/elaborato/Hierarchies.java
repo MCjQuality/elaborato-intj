@@ -17,19 +17,23 @@ public class Hierarchies implements Readable, Writable {
 
 	private List<NotLeafCategory> hierarchies;
 
-	public Hierarchies() {
+	public Hierarchies()
+	{
 		this.hierarchies = new ArrayList<>();
 	}
 
-	public void addHierarchy(NotLeafCategory root) {
+	public void addHierarchy(NotLeafCategory root)
+	{
 		hierarchies.add(root);
 	}
 
-	public List<NotLeafCategory> getHierarchies() {
+	public List<NotLeafCategory> getHierarchies()
+	{
 		return hierarchies;
 	}
 
-	public List<LeafCategory> getLeaves() {
+	public List<LeafCategory> getLeaves()
+	{
 		List<LeafCategory> leavesInAllHierarchies = new ArrayList<>();
 
 		for(NotLeafCategory root : hierarchies)
@@ -57,11 +61,13 @@ public class Hierarchies implements Readable, Writable {
 		return leaves;
 	}
 
-	public boolean isLeafPresent(String name) {
+	public boolean isLeafPresent(String name)
+	{
 		return getLeaves().stream().anyMatch(leaf -> leaf.getName().equals(name));
 	}
 
-	public boolean containsRoot(String name) {
+	public boolean containsRoot(String name)
+	{
 		return hierarchies.stream().anyMatch(notLeaf -> notLeaf.getName().equals(name));
 	}
 
@@ -73,16 +79,19 @@ public class Hierarchies implements Readable, Writable {
 		return null;
 	}
 
-	public boolean isLeafDuplicated(LeafCategory leaf) {
+	public boolean isLeafDuplicated(LeafCategory leaf)
+	{
 		return getLeaves().stream().filter(s -> leaf.getName().equals(s.getName())).count() > 1;
 	}
 	
-	public LeafCategory findLeaf(String name) {
+	public LeafCategory findLeaf(String name)
+	{
 		return getLeaves().stream().filter(leaf -> leaf.getName().contentEquals(name)).toList().getFirst();
 	}
 
 	@Override
-	public void read(String filepath) {
+	public void read(String filepath)
+	{
 		try {
 			File file = new File(filepath);
 			if (!file.createNewFile()) {

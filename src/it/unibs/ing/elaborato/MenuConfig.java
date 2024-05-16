@@ -179,8 +179,7 @@ public class MenuConfig {
 		populateTree(root, root, scanner);
 		hierarchies.write(Constants.HIERARCHIES_FILEPATH);
 
-		System.out.println();
-		System.out.println(Constants.HIERARCHY_VALID_MESSAGE);	
+		System.out.println(Constants.HIERARCHY_VALID_MESSAGE);
 
 		Utility.clearConsole(Constants.TRANSACTION_TIME);
 
