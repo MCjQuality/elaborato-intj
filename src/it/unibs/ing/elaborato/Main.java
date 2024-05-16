@@ -48,7 +48,7 @@ public class Main {
 
 				System.out.print(Constants.PASSWORD_MESSAGE);
 				System.out.print(Constants.ESCAPE_CODE_BLACKED_TEXT);
-				String psw = scanner.next();
+				String psw = scanner.nextLine();
 				System.out.println(Constants.RESET_FORMAT);
 				
 				MenuConfig menuConfig = new MenuConfig();

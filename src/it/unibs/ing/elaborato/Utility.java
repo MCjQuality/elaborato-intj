@@ -29,7 +29,7 @@ public class Utility {
 		System.out.print(textToPrint);
 		do
 		{
-			toReturn = (T) scanner.next();
+			toReturn = (T) scanner.nextLine();
 			if(condition.test(toReturn))
 				System.out.print(errorMessage);
 		} while (condition.test(toReturn));
@@ -44,7 +44,7 @@ public class Utility {
 		System.out.print( textToPrint );
 		do
 		{
-			toReturn = (T) scanner.next();
+			toReturn = (T) scanner.nextLine();
 			if(condition1.test((T) toReturn))
 				System.out.print(errorMessage1);
 			else if(condition2.test((T) toReturn))
@@ -122,14 +122,27 @@ public class Utility {
 		return string;
 	}
 
-	public static boolean isInt(String input) 
+	public static boolean isInt(String input)
 	{
-		try 
+		try
 		{
 			Integer.parseInt(input);
 			return true;
-		} 
-		catch (NumberFormatException e) 
+		}
+		catch (NumberFormatException e)
+		{
+			return false;
+		}
+	}
+
+	public static boolean isDouble(String input)
+	{
+		try
+		{
+			Double.parseDouble(input);
+			return true;
+		}
+		catch (NumberFormatException e)
 		{
 			return false;
 		}

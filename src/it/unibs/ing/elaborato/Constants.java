@@ -127,8 +127,8 @@ public class Constants {
 	public static final String INVALID_INPUT_MESSAGE_2 = BOLD_FORMAT + TAB + "Input non valido" + RESET_FORMAT;
 	public static final String INSERT_VALID_OPTION_MENU_MESSAGE = "Inserire un'opzione valida" + RESET_FORMAT;
 	public static final String MUNICIPALITY_INEXISTENT = RED_FORMAT + TAB + "Comune inesistente!" + RESET_FORMAT;
-	public static final String DISTRICT_ALREADY_INSERTED = BOLD_FORMAT + TAB + "Distretto gia' presente, reinserire: " + RESET_FORMAT;
-	public static final String DUPLICATEDE_MUNICIPALITY_MESSAGE = BOLD_FORMAT + TAB + "Comune già presente, reinserire: " + RESET_FORMAT;
+	public static final String DISTRICT_ALREADY_INSERTED = RED_FORMAT + TAB + "Distretto gia' presente, reinserire: " + RESET_FORMAT;
+	public static final String DUPLICATEDE_MUNICIPALITY_MESSAGE = BOLD_FORMAT + TAB + "Comune già presente!" + RESET_FORMAT;
 	public static final String DISTRICT_VALID_MESSAGE = YELLOW_FORMAT + TAB + "Comprensorio salvato!" + RESET_FORMAT;
 	public static final String HIERARCHY_VALID_MESSAGE = YELLOW_FORMAT + TAB + "Gerarchia salvata!" + RESET_FORMAT;
 	public static final String ROOT_ALREADY_EXIST_MESSAGE = BOLD_FORMAT + TAB + "Radice già presente, reinserire: " + RESET_FORMAT;

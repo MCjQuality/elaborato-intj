@@ -1,6 +1,7 @@
 package it.unibs.ing.elaborato;
 
 import java.io.IOException;
+import java.security.interfaces.DSAPublicKey;
 import java.util.Scanner;
 
 /**
@@ -48,7 +49,7 @@ public class MenuConfig {
 	{
 		int index;
 
-		do 
+		do
 		{
 			System.out.print(createMenuConfig());
 			index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 0 && Integer.parseInt(input) <= 8), scanner));
@@ -130,7 +131,7 @@ public class MenuConfig {
 
 		System.out.println(Constants.INSERT_MUNICIPALITY_BELONG_DISTRICT_MESSAGE);
 		String country;
-		do 
+		do
 		{
 			System.out.print(Constants.SEPARATOR);
 			country = scanner.next();
@@ -147,7 +148,7 @@ public class MenuConfig {
 		System.out.print(Constants.SAVE_THE_CHANGES_MESSAGE);
 
 		boolean notValid;
-		do 
+		do
 		{
 			notValid = false;
 			String temp = scanner.next();
@@ -185,7 +186,7 @@ public class MenuConfig {
 
 		conversionElements.update(hierarchies);
 		conversionElements.initialize(hierarchies);
-		if(conversionElements.getConversionElements().size() > 1) 
+		if(conversionElements.getConversionElements().size() > 1)
 		{
 			setConvFact(conversionElements, scanner);
 			System.out.println(Printer.printConversionElements(conversionElements));
@@ -197,7 +198,7 @@ public class MenuConfig {
 		conversionElements.write(Constants.CONVERSION_ELEMENTS_FILEPATH);
 	}
 
-	private void showDistricts(Districts districts) 
+	private void showDistricts(Districts districts)
 	{
 		System.out.println();
 		System.out.print(Printer.align(Constants.VIEW_ALL_DISTRICTS_MESSAGE, Constants.MENU_LINE_SIZE));
@@ -215,13 +216,13 @@ public class MenuConfig {
 		}
 	}
 
-	private void showHierarchies(Hierarchies hierarchies, Scanner scanner) 
+	private void showHierarchies(Hierarchies hierarchies, Scanner scanner)
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.VIEW_ALLA_HIERARCHIES_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
-		if(!hierarchies.getLeaves().isEmpty()) 
+		if(!hierarchies.getLeaves().isEmpty())
 		{
 			System.out.println(Printer.printHierarchyRoots(hierarchies));
 			int index = Integer.parseInt(Utility.checkCondition(Constants.INSERT_NUMBER_SELECT_HIERARCHY_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= hierarchies.getHierarchies().size()), scanner));
@@ -240,20 +241,20 @@ public class MenuConfig {
 			System.out.println();
 		}
 		else
-		{	
+		{
 			System.out.println(Constants.NO_HIERARCHIES);
 			System.out.println();
 		}
 	}
 
-	private void showConvFact(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws CloneNotSupportedException 
+	private void showConvFact(Hierarchies hierarchies, ConversionElements conversionElements, Scanner scanner) throws CloneNotSupportedException
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.VIEW_CONVERSION_FACTOR_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
-		if(conversionElements.getConversionElements().size() > 1) 
-		{	
+		if(conversionElements.getConversionElements().size() > 1)
+		{
 			System.out.println(Printer.printLeaves(hierarchies.differentiateLeaves()));
 
 			StringBuilder listaFattori = new StringBuilder();
@@ -282,7 +283,7 @@ public class MenuConfig {
 		}
 	}
 
-	private void showProposals(Hierarchies hierarchies, ExchangeProposals proposals, Scanner scanner) throws CloneNotSupportedException 
+	private void showProposals(Hierarchies hierarchies, ExchangeProposals proposals, Scanner scanner) throws CloneNotSupportedException
 	{
 		System.out.println();
 		System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
@@ -343,12 +344,12 @@ public class MenuConfig {
 
 	private void populateTree(Category node, NotLeafCategory root, Scanner scanner)
 	{
-		if(node.hasChildren()) 
+		if(node.hasChildren())
 		{
 			NotLeafCategory tmp = (NotLeafCategory) node;
 
 			int index;
-			do 
+			do
 			{
 				Utility.clearConsole(Constants.TRANSACTION_TIME);
 				System.out.println();
@@ -360,7 +361,7 @@ public class MenuConfig {
 
 				index = Integer.parseInt(Utility.checkCondition(String.format(Constants.CHOOSE_LEAF_OPTIONS, node.getName()), Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= 0 && Integer.parseInt(input) <= 2), scanner));
 
-				if(index == 1) 
+				if(index == 1)
 				{
 					LeafCategory leaf = createLeaf(root, scanner);
 					tmp.addChildren(leaf);
@@ -380,70 +381,25 @@ public class MenuConfig {
 
 	private void setConvFact(ConversionElements conversionElements, Scanner scanner)
 	{
-		boolean notValid2;
-		do 
+		do
 		{
 			System.out.println();
 			System.out.println(Printer.align(Constants.INSERT_CONV_FACT, Constants.MENU_LINE_SIZE));
-			System.out.println();
+			System.out.println();;
 
-			notValid2 = false;
+			System.out.println(Printer.printRemainingConversionFactor(conversionElements));
+			int coupleSelected = Integer.parseInt(Utility.checkCondition(Constants.SPECIFY_COUPLE_NUMBER_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input->!Utility.isInt(input) || input.isBlank() || !(Integer.parseInt(input) > 0 && Integer.parseInt(input) < conversionElements.getRemainingConversionElements().size() + 1), scanner));
 
-			try 
-			{
+			Couple couple = conversionElements.getRemainingConversionElements().get(coupleSelected - 1).getCouple();
+			double[] range  = conversionElements.getConversionFactorRange(couple);
+			double value = Double.parseDouble(Utility.checkCondition(String.format(Constants.SPECIFY_CONVERSION_FACTOR_NUMBER_MESSAGE, range[0], range[1]), Constants.INVALID_INPUT_MESSAGE, input->input.isBlank() || !Utility.isDouble(input) || Double.parseDouble(input) < range[0] || Double.parseDouble(input) > range[1], scanner));
 
-				boolean notValid = false;
+			conversionElements.replace(couple, value);
+			conversionElements.replace(new Couple(couple.getSecondLeaf(), couple.getFirstLeaf()), 1 / value);
+			conversionElements.automaticConvFactCalculate();
 
-				System.out.println(Printer.printRemainingConversionFactor(conversionElements));
-				//				devo controllare che:
-				//				- il numero inserito sia effettivamente una coppia presente
-				//				- il fattore di conversione sia valido (>0.5 && <2.0)
-				//				- non faccia "sballare" la lista degli elementi di conversione
-				int coupleSelected = Integer.parseInt(Utility.checkCondition(Constants.SPECIFY_COUPLE_NUMBER_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner));
-				if (coupleSelected > 0 && coupleSelected < conversionElements.getRemainingConversionElements().size() + 1) 
-				{
-					Couple couple = conversionElements.getRemainingConversionElements().get(coupleSelected - 1).getCouple();
-					double [] x  = conversionElements.getConversionFactorRange(couple);
-					System.out.printf(Constants.SPECIFY_CONVERSION_FACTOR_NUMBER_MESSAGE, x[0], x[1]);
-					double fattoreIn;
-					do 
-					{
-						try 
-						{
-							notValid = false;
-							fattoreIn = Double.parseDouble(scanner.next());
-							if(fattoreIn < x[0] || fattoreIn > x[1]) 
-							{
-								notValid = true;
-								System.out.print(Constants.INVALID_INPUT_MESSAGE);
-							}
-							else 
-							{
-								conversionElements.replace(couple, fattoreIn);
-								conversionElements.replace(new Couple(couple.getSecondLeaf(), couple.getFirstLeaf()), 1 / fattoreIn);
-								conversionElements.automaticConvFactCalculate();
-							}
-						} 
-						catch (NumberFormatException e) 
-						{
-							notValid = true;
-							System.out.print(Constants.INVALID_INPUT_MESSAGE);
-						}
-					} while (notValid);
-				}
-				else 
-				{
-					notValid2 = true;
-					System.out.println(Constants.INVALID_INPUT_MESSAGE_2);
-				}
-			}
-			catch (NumberFormatException e) 
-			{
-				notValid2 = true;
-				System.out.println(Constants.INVALID_INPUT_MESSAGE);
-			}
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
-		} while(conversionElements.isFactConvPresent(0.) || notValid2);
+		} while(conversionElements.isFactConvPresent(0.));
 	}
 
 	private LeafCategory createLeaf(Category root, Scanner scanner)
@@ -453,23 +409,20 @@ public class MenuConfig {
 		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase(Constants.YES_MESSAGE) && !input.equalsIgnoreCase(Constants.NO_MESSAGE), scanner);
 		String description = null;
 
-		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE)) 
-		{
-			System.out.print(Constants.INSERT_CATEGORY_DESCRIPTION_MESSAGE);
+		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE))
 			description = Utility.checkCondition(Constants.INSERT_CATEGORY_DESCRIPTION_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
-		}
 
 		return new LeafCategory(name, nameDomain, description);
 	}
 
-	private NotLeafCategory createNotLeaf(Category root, Scanner scanner) 
+	private NotLeafCategory createNotLeaf(Category root, Scanner scanner)
 	{
 		String name = Utility.check2Condition(Constants.INSERT_CATEGORY_NAME_MASSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.CATEGORY_ALREADY_INSERT, String::isBlank, root::contains, scanner);
 		String nameDomain = Utility.checkCondition(Constants.SPECIFY_DOMAIN_NAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
 		String yesOrNo = Utility.checkCondition(Constants.DESCRIPTION_ASSOCIATED_WITH_DOMAIN_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !input.equalsIgnoreCase(Constants.YES_MESSAGE) && !input.equalsIgnoreCase(Constants.NO_MESSAGE), scanner);
 		String description = null;
 
-		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE)) 
+		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE))
 		{
 			System.out.print(Constants.INSERT_CATEGORY_DESCRIPTION_MESSAGE);
 			description = scanner.next();
@@ -479,7 +432,7 @@ public class MenuConfig {
 		return new NotLeafCategory(name, nameDomain, description, nameField);
 	}
 
-	private NotLeafCategory createRoot(Scanner scanner, Hierarchies hierarchies) 
+	private NotLeafCategory createRoot(Scanner scanner, Hierarchies hierarchies)
 	{
 		String name = Utility.check2Condition(Constants.INSERT_ROOT_NAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.ROOT_ALREADY_EXIST_MESSAGE, String::isBlank, hierarchies::containsRoot, scanner);
 		String field = Utility.checkCondition(Constants.SPECIFY_FIELD_NAME, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);

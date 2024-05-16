@@ -277,7 +277,7 @@ public class MenuConsumer {
 			}
 
 			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
+			scanner.nextLine();
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			break;
 		}
@@ -298,7 +298,7 @@ public class MenuConsumer {
 			}
 
 			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
+			scanner.nextLine();
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			break;
 		}
@@ -319,7 +319,7 @@ public class MenuConsumer {
 			}
 
 			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
+			scanner.nextLine();
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 			break;
 		}
