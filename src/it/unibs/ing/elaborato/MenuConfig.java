@@ -62,60 +62,60 @@ public class MenuConfig {
 	{
 		switch (choice)
 		{
-		case Constants.NUMBER_1_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			insertNewDistrict(districts, scanner);
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_2_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			insertNewHierarchy(hierarchies,conversionElements , scanner);
-			break;
-		case Constants.NUMBER_3_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showDistricts(districts);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_4_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showHierarchies(hierarchies, scanner);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_5_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showConvFact(hierarchies, conversionElements, scanner);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_6_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showProposals(hierarchies, proposals, scanner);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_7_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			showClosedSets(closedSets);
-			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			break;
-		case Constants.NUMBER_8_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			System.out.println(Constants.LOGOUT_MESSAGGE);
-			break;
-		case Constants.NUMBER_0_MESSAGE:
-			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			System.out.println(Constants.TERMINATION_MENU_MESSAGE);
-			Utility.clearConsole(Constants.READING_TIME);
-			break;
-		default: System.out.println(Constants.INSERT_VALID_OPTION_MENU_MESSAGE);
+			case Constants.NUMBER_1_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				insertNewDistrict(districts, scanner);
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_2_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				insertNewHierarchy(hierarchies,conversionElements , scanner);
+				break;
+			case Constants.NUMBER_3_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				showDistricts(districts);
+				System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+				scanner.nextLine();
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_4_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				showHierarchies(hierarchies, scanner);
+				System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+				scanner.nextLine();
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_5_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				showConvFact(hierarchies, conversionElements, scanner);
+				System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+				scanner.nextLine();
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_6_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				showProposals(hierarchies, proposals, scanner);
+				System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+				scanner.nextLine();
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_7_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				showClosedSets(closedSets);
+				System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
+				scanner.nextLine();
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				break;
+			case Constants.NUMBER_8_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				System.out.println(Constants.LOGOUT_MESSAGE);
+				break;
+			case Constants.NUMBER_0_MESSAGE:
+				Utility.clearConsole(Constants.TRANSACTION_TIME);
+				System.out.println(Constants.TERMINATION_MENU_MESSAGE);
+				Utility.clearConsole(Constants.READING_TIME);
+				break;
+			default: System.out.println(Constants.INSERT_VALID_OPTION_MENU_MESSAGE);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class MenuConfig {
 		do
 		{
 			System.out.print(Constants.SEPARATOR);
-			country = scanner.next();
+			country = scanner.nextLine();
 			if (!country.equalsIgnoreCase(Constants.Q_MESSAGE) && Utility.isPresent(Constants.ITALIAN_MUNICIPALITIES_FILEPATH, country) && !districts.isMunicipalityDuplicate(country) && !district.isMunicipalityDuplicate(country))
 				district.add(country);
 			else if(country.equalsIgnoreCase(Constants.Q_MESSAGE))
@@ -150,8 +150,8 @@ public class MenuConfig {
 		do
 		{
 			notValid = false;
-			String temp = scanner.next();
-			if(temp.equalsIgnoreCase(Constants.YES_MESSAGE)) 
+			String temp = scanner.nextLine();
+			if(temp.equalsIgnoreCase(Constants.YES_MESSAGE))
 			{
 				districts.addDistrict(district);
 				districts.write(Constants.DISTRICTS_FILEPATH);
@@ -190,7 +190,7 @@ public class MenuConfig {
 			setConvFact(conversionElements, scanner);
 			System.out.println(Printer.printConversionElements(conversionElements));
 			System.out.print(Constants.PRESS_ANY_BUTTONS_TO_GO_BACK);
-			scanner.next();
+			scanner.nextLine();
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
 		}
 
@@ -288,7 +288,7 @@ public class MenuConfig {
 		System.out.println(Printer.align(Constants.SHOW_PROPOSAL, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
-		if(!hierarchies.getLeaves().isEmpty() && !proposals.getExchangeProposals().isEmpty()) 
+		if(!hierarchies.getLeaves().isEmpty() && !proposals.getExchangeProposals().isEmpty())
 		{
 			System.out.println(Printer.printLeaves(hierarchies.differentiateLeaves()));
 
@@ -310,6 +310,7 @@ public class MenuConfig {
 
 			if(!proposalsList.isEmpty())
 			{
+				System.out.println();
 				System.out.println(proposalsList);
 				System.out.println();
 			}
@@ -424,7 +425,7 @@ public class MenuConfig {
 		if(yesOrNo.equalsIgnoreCase(Constants.YES_MESSAGE))
 		{
 			System.out.print(Constants.INSERT_CATEGORY_DESCRIPTION_MESSAGE);
-			description = scanner.next();
+			description = scanner.nextLine();
 		}
 		String nameField = Utility.checkCondition(Constants.SPECIFY_FIELD_NAME, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
 

@@ -166,7 +166,8 @@ public class MenuConsumer {
 		System.out.println(Printer.align(Constants.ADD_EXCHANGE_PROPOSAL_MENU_MESSAGE, Constants.MENU_LINE_SIZE));
 		System.out.println();
 
-		if(!hierarchies.getLeaves().isEmpty()) {
+		if(!hierarchies.getLeaves().isEmpty())
+		{
 
 			ExchangeProposal exchangeProposal = createExchangeProposal(hierarchies, scanner, consumer, conversionElements);
 
@@ -213,7 +214,7 @@ public class MenuConsumer {
 		String request = Utility.check2Condition(Constants.SERVICE_REQUESTED, Constants.INVALID_INPUT_MESSAGE, Constants.LEAF_CATEGORY_DOES_NOT_EXIST , String::isBlank, input -> !hierarchies.isLeafPresent(input), scanner);
 		String offer = Utility.check2Condition(Constants.SERVICE_OFFERED, Constants.INVALID_INPUT_MESSAGE, Constants.LEAF_CATEGORY_DOES_NOT_EXIST , input -> input.isBlank() || input.equals(request), input -> !hierarchies.isLeafPresent(input), scanner);
 		Couple couple = new Couple(hierarchies.findLeaf(request), hierarchies.findLeaf(offer));
-		int hours = Integer.parseInt(Utility.checkCondition(Constants.HOURS_REQUESTED,Constants.INVALID_INPUT_MESSAGE , input->input.isBlank() || Utility.isInt(input) || Integer.parseInt(input) > 0, scanner));
+		int hours = Integer.parseInt(Utility.checkCondition(Constants.HOURS_REQUESTED,Constants.INVALID_INPUT_MESSAGE , input->input.isBlank() || !Utility.isInt(input) || Integer.parseInt(input) <= 0, scanner));
 
 		return new ExchangeProposal(couple, hours, consumer, conversionElements);
 	}

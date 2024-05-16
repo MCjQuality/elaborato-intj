@@ -25,7 +25,8 @@ public class ClosedSets implements Readable, Writable {
 		closedSets.add(closedSet);
 	}
 
-	public List<ExchangeProposals> getClosedSets() {
+	public List<ExchangeProposals> getClosedSets()
+	{
 		return closedSets;
 	}
 	
