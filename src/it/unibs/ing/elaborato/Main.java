@@ -44,7 +44,7 @@ public class Main {
 				System.out.println(Constants.LIGHT_BLUE_FORMAT + Constants.ITALICS + Printer.align(Constants.WELCOME_MESSAGE, Constants.MENU_LINE_SIZE) + Constants.RESET_FORMAT);
 				System.out.println();
 
-				String username = Utility.checkCondition(Constants.USERNAME_MESSAGGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
+				String username = Utility.checkCondition(Constants.USERNAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, String::isBlank, scanner);
 
 				System.out.print(Constants.PASSWORD_MESSAGE);
 				System.out.print(Constants.ESCAPE_CODE_BLACKED_TEXT);
@@ -71,7 +71,7 @@ public class Main {
 							not_valid = false;
 
 							System.out.println();
-							System.out.println(Printer.align(Constants.AGGIORNAMENTO_CREDENZIALI, Constants.MENU_LINE_SIZE));
+							System.out.println(Printer.align(Constants.CREDENTIALS_UPDATE, Constants.MENU_LINE_SIZE));
 							System.out.println();
 
 							newUsername = Utility.check2Condition(Constants.INSERT_NEW_USERNAME, Constants.INVALID_INPUT_MESSAGE, Constants.USERNAME_ALREADY_EXSIST_MESSAGE, input -> input.isBlank() || input.equals(username), users::contains, scanner);
@@ -129,7 +129,7 @@ public class Main {
 
 							district_index = Integer.parseInt(Utility.checkCondition(Constants.SELECT_FROM_THE_OPTIONS_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isInt(input) || !(Integer.parseInt(input) >= Constants.NUMBER_1_MESSAGE && Integer.parseInt(input) <= districts.getDistricts().size()), scanner));
 							district_name = districts.getDistricts().get(district_index - Constants.NUMBER_1_MESSAGE).getName();
-							username_consumer = Utility.check2Condition(Constants.USERNAME_MESSAGGE, Constants.INVALID_INPUT_MESSAGE, Constants.USERNAME_ALREADY_EXSIST_MESSAGE, String::isBlank, users::contains, scanner);
+							username_consumer = Utility.check2Condition(Constants.USERNAME_MESSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.USERNAME_ALREADY_EXSIST_MESSAGE, String::isBlank, users::contains, scanner);
 							psw_consumer = Utility.checkCondition(Constants.PASSWORD_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input -> !Utility.isPswValid(input.toCharArray(), Constants.DIGITS_REQUIREMENT, Constants.LETTERS_REQUIREMENT), scanner);
 							email = Utility.check2Condition(Constants.MAIL_MESSAGE, Constants.INVALID_INPUT_MESSAGE, Constants.INSERT_VALID_MAIL_ADDRESS, String::isBlank, input -> !Utility.isValidEmail(input), scanner);
 

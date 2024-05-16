@@ -212,7 +212,7 @@ public class Printer {
 		StringBuilder result = new StringBuilder();
 		result.append(Constants.REQUEST_MESSAGE + Constants.SQUARE_BRACKETS1).append(exchangeProposal.getCouple().getFirstLeaf().getName()).append(Constants.COMMA).append(exchangeProposal.getHoursRequest()).append(Constants.SQUARE_BRACKETS2);
 		result.append(Constants.NEW_LINE);
-		result.append(Constants.OFFERT_MESSAGE + Constants.SQUARE_BRACKETS1).append(exchangeProposal.getCouple().getSecondLeaf().getName()).append(Constants.COMMA).append(Constants.LIGHT_BLUE_FORMAT).append(exchangeProposal.getHoursOffered()).append(Constants.RESET_FORMAT).append(Constants.SQUARE_BRACKETS2);
+		result.append(Constants.OFFER_MESSAGE + Constants.SQUARE_BRACKETS1).append(exchangeProposal.getCouple().getSecondLeaf().getName()).append(Constants.COMMA).append(Constants.LIGHT_BLUE_FORMAT).append(exchangeProposal.getHoursOffered()).append(Constants.RESET_FORMAT).append(Constants.SQUARE_BRACKETS2);
 		result.append(Constants.NEW_LINE);
 
 		return result.toString();

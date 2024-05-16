@@ -47,7 +47,7 @@ public class Constants {
 	public static final String CONFIRM_CONSUMER_ACCESS_MESSAGE =  "Accesso eseguito come fruitore: ";
 	public static final String RECOGNIZED_CREDENTIALS_MESSAGE = "Credenziali Riconosciute ✔";
 	public static final String WELCOME_MESSAGE = "BENVENUTO";
-	public static final String USERNAME_MESSAGGE = "username: ";
+	public static final String USERNAME_MESSAGE = "username: ";
 	public static final String PASSWORD_MESSAGE = "password: ";
 	public static final String MAIL_MESSAGE = "mail: ";
 	public static final String INSERT_NEW_USERNAME = "Inserisci nuovo username: ";
@@ -58,7 +58,7 @@ public class Constants {
 	public static final String INSERT_PASSWORD_MATCHES_PREVIOUS_MESSAGE = BOLD_FORMAT + TAB + "Password uguale alla precedente, reinserire: " + RESET_FORMAT;
 	public static final String REGISTRATION_AS_USER_MESSAGE = "Vuoi registrarti come fruitore (y/n)? ";
 	public static final String INSERT_VALID_MAIL_ADDRESS = BOLD_FORMAT + TAB + "Inserire un indirizzo mail valido: " + RESET_FORMAT;
-	public static final String AGGIORNAMENTO_CREDENZIALI = GRAY_FORMAT + "-AGGIORNAMENTO CREDENZIALI-" + RESET_FORMAT;
+	public static final String CREDENTIALS_UPDATE = GRAY_FORMAT + "-AGGIORNAMENTO CREDENZIALI-" + RESET_FORMAT;
 	public static final String CREDENTIALS_UPDATED = Constants.GREEN_FORMAT + "Credenziali aggiornate!" + Constants.RESET_FORMAT;
 
 
@@ -124,11 +124,10 @@ public class Constants {
 		//errori-conferme
 	public static final String CATEGORY_ALREADY_INSERT = BOLD_FORMAT + TAB + "Categoria gia' presente, reinserire: " + RESET_FORMAT;
 	public static final String DISTRICT_NOT_SAVED_MESSAGE = YELLOW_FORMAT + TAB + "Comprensorio non salvato!" + RESET_FORMAT;
-	public static final String INVALID_INPUT_MESSAGE_2 = BOLD_FORMAT + TAB + "Input non valido" + RESET_FORMAT;
 	public static final String INSERT_VALID_OPTION_MENU_MESSAGE = "Inserire un'opzione valida" + RESET_FORMAT;
-	public static final String MUNICIPALITY_INEXISTENT = RED_FORMAT + TAB + "Comune inesistente!" + RESET_FORMAT;
+	public static final String MUNICIPALITY_NONEXISTENT = RED_FORMAT + TAB + "Comune inesistente!" + RESET_FORMAT;
 	public static final String DISTRICT_ALREADY_INSERTED = RED_FORMAT + TAB + "Distretto gia' presente, reinserire: " + RESET_FORMAT;
-	public static final String DUPLICATEDE_MUNICIPALITY_MESSAGE = BOLD_FORMAT + TAB + "Comune già presente!" + RESET_FORMAT;
+	public static final String DUPLICATED_MUNICIPALITY_MESSAGE = BOLD_FORMAT + TAB + "Comune già presente!" + RESET_FORMAT;
 	public static final String DISTRICT_VALID_MESSAGE = YELLOW_FORMAT + TAB + "Comprensorio salvato!" + RESET_FORMAT;
 	public static final String HIERARCHY_VALID_MESSAGE = YELLOW_FORMAT + TAB + "Gerarchia salvata!" + RESET_FORMAT;
 	public static final String ROOT_ALREADY_EXIST_MESSAGE = BOLD_FORMAT + TAB + "Radice già presente, reinserire: " + RESET_FORMAT;
@@ -154,7 +153,7 @@ public class Constants {
 	public static final String Q_MESSAGE = "Q";
 	public static final String TERMINATION_MENU_MESSAGE = "Terminazione...";
 	public static final String MENU_MESSAGE = "Menu";
-	public static final String LOGOUT_MESSAGGE = "Logout...";
+	public static final String LOGOUT_MESSAGE = "Logout...";
 	public static final String ASSOCIATED_NODE_TO_DOMAIN = "Nodo associato: %s";
 	public static final String ACTIVE_PROPOSALS_RELATED_TO_A_CONSUMER = "Proposte attive di: %s";
 	public static final String PROPOSALS_ASSOCIATES_LEAF_CATEGORY_MESSAGE = "Proposte associate a: ";
@@ -174,7 +173,7 @@ public class Constants {
 	public static final String COMPLETE_PRINT_OF_HIERARCHY_MESSAGE = GRAY_FORMAT + " -Visualizzazione completa-" + RESET_FORMAT;
 	public static final String CLOSED_SETS = BOLD_FORMAT + UNDERLINE + "Insieme %d" + RESET_FORMAT;
 	public static final String REQUEST_MESSAGE = "Richiesta:";
-	public static final String OFFERT_MESSAGE = "Offerta:";
+	public static final String OFFER_MESSAGE = "Offerta:";
 	public static final String OPEN = "APERTA";
 	public static final String CLOSED = "CHIUSA";
 	public static final String WITHDRAWN = "RITIRATA";

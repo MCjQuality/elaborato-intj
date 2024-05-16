@@ -70,7 +70,7 @@ public class MenuConsumer {
 			break;
 		case Constants.NUMBER_5_MESSAGE:
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
-			System.out.println(Constants.LOGOUT_MESSAGGE);
+			System.out.println(Constants.LOGOUT_MESSAGE);
 			break;
 		case Constants.NUMBER_0_MESSAGE:
 			Utility.clearConsole(Constants.TRANSACTION_TIME);
@@ -213,7 +213,7 @@ public class MenuConsumer {
 		String request = Utility.check2Condition(Constants.SERVICE_REQUESTED, Constants.INVALID_INPUT_MESSAGE, Constants.LEAF_CATEGORY_DOES_NOT_EXIST , String::isBlank, input -> !hierarchies.isLeafPresent(input), scanner);
 		String offer = Utility.check2Condition(Constants.SERVICE_OFFERED, Constants.INVALID_INPUT_MESSAGE, Constants.LEAF_CATEGORY_DOES_NOT_EXIST , input -> input.isBlank() || input.equals(request), input -> !hierarchies.isLeafPresent(input), scanner);
 		Couple couple = new Couple(hierarchies.findLeaf(request), hierarchies.findLeaf(offer));
-		int hours = Integer.parseInt(Utility.checkCondition(Constants.HOURS_REQUESTED,Constants.INVALID_INPUT_MESSAGE , String::isBlank, scanner));
+		int hours = Integer.parseInt(Utility.checkCondition(Constants.HOURS_REQUESTED,Constants.INVALID_INPUT_MESSAGE , input->input.isBlank() || Utility.isInt(input) || Integer.parseInt(input) > 0, scanner));
 
 		return new ExchangeProposal(couple, hours, consumer, conversionElements);
 	}

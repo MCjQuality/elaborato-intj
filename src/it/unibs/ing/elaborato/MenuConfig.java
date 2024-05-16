@@ -1,7 +1,6 @@
 package it.unibs.ing.elaborato;
 
 import java.io.IOException;
-import java.security.interfaces.DSAPublicKey;
 import java.util.Scanner;
 
 /**
@@ -140,9 +139,9 @@ public class MenuConfig {
 			else if(country.equalsIgnoreCase(Constants.Q_MESSAGE))
 				System.out.println();
 			else if(districts.isMunicipalityDuplicate(country) || district.isMunicipalityDuplicate(country))
-				System.out.println(Constants.DUPLICATEDE_MUNICIPALITY_MESSAGE);
+				System.out.println(Constants.DUPLICATED_MUNICIPALITY_MESSAGE);
 			else
-				System.out.println(Constants.MUNICIPALITY_INEXISTENT);
+				System.out.println(Constants.MUNICIPALITY_NONEXISTENT);
 		} while(!country.equalsIgnoreCase(Constants.Q_MESSAGE) || district.getTerritories().isEmpty());
 
 		System.out.print(Constants.SAVE_THE_CHANGES_MESSAGE);
@@ -385,7 +384,7 @@ public class MenuConfig {
 		{
 			System.out.println();
 			System.out.println(Printer.align(Constants.INSERT_CONV_FACT, Constants.MENU_LINE_SIZE));
-			System.out.println();;
+			System.out.println();
 
 			System.out.println(Printer.printRemainingConversionFactor(conversionElements));
 			int coupleSelected = Integer.parseInt(Utility.checkCondition(Constants.SPECIFY_COUPLE_NUMBER_MESSAGE, Constants.INVALID_INPUT_MESSAGE, input->!Utility.isInt(input) || input.isBlank() || !(Integer.parseInt(input) > 0 && Integer.parseInt(input) < conversionElements.getRemainingConversionElements().size() + 1), scanner));
